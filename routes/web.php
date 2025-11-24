@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 
@@ -11,5 +14,40 @@ Route::get('dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/sesi',[SessionController::class, 'index']);
-Route::post('sesi/login',[SessionController::class, 'login']);
+Route::get('/sesi', [SessionController::class, 'index']);
+Route::post('sesi/login', [SessionController::class, 'login']);
+
+Route::get('home', function () {
+    return view('home');
+});
+
+Route::get('productdetail', function () {
+    return view('productDetail');
+});
+
+Route::get('/token', function (Request $request) {
+    // return session token (or use csrf_token() if preferred)
+    return $request->session()->token();
+});
+
+Route::get('register', function () {
+    return view('register');
+});
+
+Route::post('register', function (Request $request) {
+    $cresidentials = $request->validate([
+        'name' => ['required'],
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    $user = User::create([
+        'name' => $cresidentials['name'],
+        'email' => $cresidentials['email'],
+        'password' => Hash::make($cresidentials['password']),
+    ]);
+
+    $user->save();
+
+    return redirect('dashboard');
+});
