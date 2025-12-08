@@ -25,6 +25,13 @@ Route::get('productdetail', function () {
     return view('productDetail');
 });
 
+Route::get('katalog', function () {
+    return view('katalog');
+});
+
+Route::get('login', function () {
+    return view('login');
+});
 Route::get('/token', function (Request $request) {
     // return session token (or use csrf_token() if preferred)
     return $request->session()->token();

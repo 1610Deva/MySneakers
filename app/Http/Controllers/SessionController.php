@@ -36,4 +36,10 @@ class SessionController extends Controller
         }
 
     }
+
+    function logout()
+    {
+        Auth::logout();
+        return redirect('sesi')->with('success', 'Logout Berhasil');
+    }
 }
