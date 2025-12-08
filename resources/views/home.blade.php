@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MySneakers - Best Solution For Seeking Sneakers</title>
-    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/logo-sm1.jpg') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
+
+<body class="bg-gray-50" style="font-family: 'DM Sans', sans-serif;">
+
     <!-- Top Banner -->
-    <div class="bg-blue-800 text-white py-2">
+    <div class="bg-blue-950 text-white py-2.5">
         <div class="container mx-auto px-6">
-            <p class="text-sm font-medium text-center">🔥 Early Access Black Friday Sale 🔥 <a href="#" class="underline ml-2">Shop & Save</a></p>
+            <p class="text-sm font-medium text-center">
+                ✨ Free Shipping on Orders Over Rp 500.000
+                <a href="#" class="underline ml-2 hover:text-gray-200">Shop Now</a>
+            </p>
         </div>
     </div>
 
     <!-- Main Navbar -->
     <nav class="bg-white shadow-md top-0 sticky z-50">
         <!-- Logo & Search Section -->
-        <div class="border-b-blue-900 border-b">
+        <div class=" border-b border-gray-200">
             <div class="container mx-auto px-6 py-4">
                 <div class="flex items-center justify-between gap-8">
                     <!-- Logo -->
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('images/logo-sm.png') }}" alt="MySneakers Logo" class="w-10 h-10"/>
-                        <div class="text-2xl font-bold text-blue-950">MySneakers</div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <img src="{{ asset('images/logo-sm.jpg') }}" alt="MySneakers Logo" class="w-auto h-12" />
                     </div>
-                    
+
                     <!-- Search Bar -->
-                    <div class="flex-1 max-w-2xl">
+                    <div class="flex-1 max-w-2xl hidden md:block">
                         <div class="relative">
-                            <input 
-                                type="text" 
-                                placeholder="Search Product..." 
-                                class="w-full px-4 py-3 pr-12 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-950"
-                            >
+                            <input
+                                type="text"
+                                placeholder="Search Product..."
+                                class="w-full px-4 py-3 pr-12 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-950">
                             <button class="absolute right-3 top-1/2 -translate-y-1/2">
                                 <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -45,22 +55,20 @@
 
                     <!-- Right Icons -->
                     <div class="flex items-center gap-4">
-                        <button class="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-blue-950 transition">
-                            Join / Log In
-                        </button>
-                        
-                        <button class="flex items-center gap-2 px-4 py-2 bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition">
+                        <!-- Profile Button -->
+                        <button class="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition font-medium">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
-                            <span class="hidden lg:block text-sm">Profile</span>
+                            <span>Sign In</span>
                         </button>
-                        
-                        <button class="relative text-gray-700 hover:text-blue-950">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                        <!-- Cart Button -->
+                        <button class="relative text-gray-700 hover:text-blue-950 transition" command="show-modal" commandfor="drawer">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
-                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">3</span>
                         </button>
                     </div>
                 </div>
@@ -76,119 +84,104 @@
                         <!-- Men's Mega Menu -->
                         <div class="relative group">
                             <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Men's</a>
-                            <div class="absolute left-0 top-full w-screen max-w-screen -ml-6 md:ml-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-150 ease-out">
-                                <div class="mx-auto bg-white shadow-lg border-t-2 border-gray-100 py-8 px-6 mt-3 rounded-b-lg w-full z-40">
-                                    <div class="container mx-auto">
-                                        <div class="grid grid-cols-4 gap-8">
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">SHOES</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">All Shoes</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Running</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Basketball</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Lifestyle</a></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">CLOTHING</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">All Clothing</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">T-Shirts</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Hoodies</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Jackets</a></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">ACCESSORIES</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">All Accessories</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Bags</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Socks</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Hats</a></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">FEATURED</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">New Releases</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Best Sellers</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Sale</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Women's Mega Menu -->
                         <div class="relative group">
                             <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Women's</a>
-                            <div class="absolute left-0 top-full w-screen max-w-screen -ml-6 md:ml-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-150 ease-out">
-                                <div class="mx-auto bg-white shadow-lg border-t-2 border-gray-100 py-8 px-6 mt-3 rounded-b-lg w-full z-40">
-                                    <div class="container mx-auto">
-                                        <div class="grid grid-cols-4 gap-8">
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">SHOES</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">All Shoes</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Running</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Training</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Lifestyle</a></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">CLOTHING</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">All Clothing</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Sports Bras</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Leggings</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Tops</a></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">ACCESSORIES</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">All Accessories</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Bags</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Socks</a></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <h4 class="font-bold text-sm mb-4 text-gray-900">FEATURED</h4>
-                                                <ul class="space-y-2">
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">New Releases</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Best Sellers</a></li>
-                                                    <li><a href="#" class="text-gray-600 hover:text-blue-950 text-sm">Sale</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="relative group">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Kids'</a>
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Kid's</a>
                         </div>
 
                         <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition">Sale</a>
                         <span class="text-gray-300">|</span>
 
-                        <!-- Brands Mega Menu -->
+                        <!-- Brands Mega Menu - FIXED -->
                         <div class="relative group">
                             <a href="#" class="text-gray-700 hover:text-blue-950 transition">Brands</a>
-                            <div class="absolute left-0 top-full w-screen max-w-screen -ml-6 md:ml-0 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-150 ease-out">
-                                <div class="mx-auto bg-white shadow-lg border-t-2 border-gray-100 py-8 px-6 mt-3 rounded-b-lg w-full z-40">
-                                    <div class="container mx-auto px-2">
-                                        <h3 class="text-xl font-bold mb-6 text-center">Shop by Brand</h3>
-                                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                                            @foreach(['Nike','Adidas','Puma','New Balance','Jordan','Asics','New Balance','Jordan','Asics','New Balance','Jordan','Asics'] as $brand)
-                                            <a href="#" class="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition flex items-center justify-center">
-                                                <img src="https://via.placeholder.com/100x50?text={{ urlencode($brand) }}" alt="{{ $brand }}" class="max-w-full h-auto">
-                                            </a>
-                                            @endforeach
-                                        </div>
+                            <!-- Fixed dropdown positioning -->
+                            <div class="absolute left-1/2 -translate-x-1/2 top-full w-screen max-w-7xl invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 ease-in-out pt-2 z-50">
+                                <div class="bg-white shadow-xl border border-gray-200 py-8 px-6 rounded-lg">
+                                    <h3 class="text-xl font-bold mb-6 text-center text-gray-900">Shop by Brand</h3>
+                                    <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                        <!-- @foreach(['Nike','Adidas','Puma','New Balance','Jordan','Asics','Reebok','Converse','Vans','Under Armour','Skechers','Fila'] as $brand)
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex items-center justify-center group/item">
+                                            <span class="text-sm font-medium text-gray-700 group-hover/item:text-blue-950">{{ $brand }}</span>
+                                        </a>
+                                        @endforeach -->
+                                        <!-- Nike -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Nike</span>
+                                        </a>
+
+                                        <!-- Adidas -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/adidas.jpg') }}" alt="Adidas" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Adidas</span>
+                                        </a>
+
+                                        <!-- Puma -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/puma.webp') }}" alt="Puma" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Puma</span>
+                                        </a>
+
+                                        <!-- New Balance -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/newbalance.webp') }}" alt="New Balance" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">New Balance</span>
+                                        </a>
+
+                                        <!-- Jordan -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/jordan.webp') }}" alt="Jordan" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Jordan</span>
+                                        </a>
+
+                                        <!-- Asics -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/asics.webp') }}" alt="Asics" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Asics</span>
+                                        </a>
+
+                                        <!-- Reebok -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/reebok.jpg') }}" alt="Reebok" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Reebok</span>
+                                        </a>
+
+                                        <!-- Converse -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/converse.webp') }}" alt="Converse" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Converse</span>
+                                        </a>
+
+                                        <!-- Vans -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/vans.webp') }}" alt="Vans" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Vans</span>
+                                        </a>
+
+                                        <!-- Under Armour -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/underarmour.webp') }}" alt="Under Armour" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Under Armour</span>
+                                        </a>
+
+                                        <!-- Skechers -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/compass.png') }}" alt="Compass" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Compass</span>
+                                        </a>
+
+                                        <!-- Fila -->
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
+                                            <img src="{{ asset('images/logo/hoka.webp') }}" alt="Hoka" class="h-12 w-auto object-contain">
+                                            <span class="text-xs font-medium text-gray-700 group-hover/item:text-blue-950">Hoka</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -203,250 +196,1386 @@
     </nav>
     <!-- End of Navbar -->
 
-    <!-- Hero Section -->
-    <section class="bg-linear-to-r from-blue-950 to-blue-800 text-white py-20">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h1 class="text-5xl font-bold mb-6">Find Your Perfect Sneakers</h1>
-                    <p class="text-xl mb-8 text-gray-200">Discover the latest and greatest sneakers from top brands. Your style, your choice.</p>
-                    <div class="flex gap-4">
-                        <button class="px-8 py-3 bg-white text-blue-950 rounded-lg font-semibold hover:bg-gray-100 transition">Shop Now</button>
-                        <button class="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-950 transition">Learn More</button>
+    <!-- Shopping Cart Drawer -->
+    <el-dialog>
+        <dialog id="drawer" aria-labelledby="drawer-title" class="fixed inset-0 size-auto max-h-none max-w-none overflow-hidden bg-transparent not-open:hidden backdrop:bg-transparent">
+            <el-dialog-backdrop class="absolute inset-0 bg-gray-500/75 transition-opacity duration-200 ease-in-out data-closed:opacity-0"></el-dialog-backdrop>
+
+            <div tabindex="0" class="absolute inset-0 pl-10 focus:outline-none sm:pl-16">
+                <el-dialog-panel class="ml-auto block size-full max-w-md transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700">
+                    <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
+                        <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                            <div class="flex items-start justify-between">
+                                <h2 id="drawer-title" class="text-lg font-medium text-gray-900">Shopping cart</h2>
+                                <div class="ml-3 flex h-7 items-center">
+                                    <button type="button" command="close" commandfor="drawer" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                                        <span class="absolute -inset-0.5"></span>
+                                        <span class="sr-only">Close panel</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mt-8">
+                                <div class="flow-root">
+                                    <ul role="list" class="-my-6 divide-y divide-gray-200">
+                                        <li class="flex py-6">
+                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="size-full object-cover" />
+                                            </div>
+
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <a href="#">Throwback Hip Bag</a>
+                                                        </h3>
+                                                        <p class="ml-4">$90.00</p>
+                                                    </div>
+                                                    <p class="mt-1 text-sm text-gray-500">Salmon</p>
+                                                </div>
+                                                <div class="flex flex-1 items-end justify-between text-sm">
+                                                    <p class="text-gray-500">Qty 1</p>
+
+                                                    <div class="flex">
+                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="flex py-6">
+                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="size-full object-cover" />
+                                            </div>
+
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <a href="#">Medium Stuff Satchel</a>
+                                                        </h3>
+                                                        <p class="ml-4">$32.00</p>
+                                                    </div>
+                                                    <p class="mt-1 text-sm text-gray-500">Blue</p>
+                                                </div>
+                                                <div class="flex flex-1 items-end justify-between text-sm">
+                                                    <p class="text-gray-500">Qty 1</p>
+
+                                                    <div class="flex">
+                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="flex py-6">
+                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-03.jpg" alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls." class="size-full object-cover" />
+                                            </div>
+
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <a href="#">Zip Tote Basket</a>
+                                                        </h3>
+                                                        <p class="ml-4">$140.00</p>
+                                                    </div>
+                                                    <p class="mt-1 text-sm text-gray-500">White and black</p>
+                                                </div>
+                                                <div class="flex flex-1 items-end justify-between text-sm">
+                                                    <p class="text-gray-500">Qty 1</p>
+
+                                                    <div class="flex">
+                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                            <div class="flex justify-between text-base font-medium text-gray-900">
+                                <p>Subtotal</p>
+                                <p>$262.00</p>
+                            </div>
+                            <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                            <div class="mt-6">
+                                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Checkout</a>
+                            </div>
+                            <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                <p>
+                                    or
+                                    <button type="button" command="close" commandfor="drawer" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                        Continue Shopping
+                                        <span aria-hidden="true"> &rarr;</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </el-dialog-panel>
+            </div>
+        </dialog>
+    </el-dialog>
+
+    <!-- Hero Section with Background Image -->
+    <section class="relative h-[550px] md:h-[700px] overflow-hidden">
+        <!-- Background Image with Gradient Overlay -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=2000');">
+            <div class="absolute inset-0 bg-linear-to-r from-blue-950/95 via-blue-950/75 to-blue-950/40"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative container mx-auto px-6 h-full flex items-center">
+            <div class="max-w-2xl">
+
+                <div class="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-semibold mb-6">
+                    🔥 New Season Collection 2025
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+                    Step Into<br />
+                    Your Style
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-100 mb-10 leading-relaxed max-w-xl">
+                    Discover premium sneakers from the world's top brands. Authentic products, unbeatable prices.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#featured" class="inline-block px-10 py-4 bg-blue-950 text-white text-lg font-bold rounded-lg hover:bg-blue-900 transition-all transform hover:scale-105 shadow-xl text-center">
+                        Shop Now
+                    </a>
+                    <a href="#brands" class="inline-block px-10 py-4 bg-white/10 backdrop-blur-sm border-2 border-white text-white text-lg font-bold rounded-lg hover:bg-white hover:text-blue-950 transition-all text-center">
+                        Explore Brands
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Infinite Brand Logo Slider -->
+    <section class="py-6 bg-white overflow-hidden">
+        <style>
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            .animate-scroll {
+                animation: scroll 30s linear infinite;
+            }
+
+            .animate-scroll:hover {
+                animation-play-state: paused;
+            }
+        </style>
+
+        <div class="relative">
+            <!-- Gradient Overlays -->
+            <div class="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-white to-transparent z-10"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-white to-transparent z-10"></div>
+
+            <!-- Scrolling Container -->
+            <div class="flex animate-scroll">
+                <!-- First Set of Logos -->
+                <div class="flex items-center gap-16 px-8">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/adidas.jpg') }}" alt="Adidas" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/puma.webp') }}" alt="Puma" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/newbalance.webp') }}" alt="New Balance" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/jordan.webp') }}" alt="Jordan" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/asics.webp') }}" alt="Asics" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/reebok.jpg') }}" alt="Reebok" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/converse.webp') }}" alt="Converse" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/vans.webp') }}" alt="Vans" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/underarmour.webp') }}" alt="Under Armour" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/compass.png') }}" alt="Compass" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/hoka.webp') }}" alt="Hoka" class="max-w-full max-h-full object-contain">
                     </div>
                 </div>
-                <div class="hidden md:block">
-                    <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=600" alt="Hero Sneakers" class="rounded-lg shadow-2xl">
+
+                <!-- Duplicate Set for Seamless Loop -->
+                <div class="flex items-center gap-16 px-8">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/adidas.jpg') }}" alt="Adidas" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/puma.webp') }}" alt="Puma" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/newbalance.webp') }}" alt="New Balance" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/jordan.webp') }}" alt="Jordan" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/asics.webp') }}" alt="Asics" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/reebok.jpg') }}" alt="Reebok" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/converse.webp') }}" alt="Converse" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/vans.webp') }}" alt="Vans" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/underarmour.webp') }}" alt="Under Armour" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/compass.png') }}" alt="Compass" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                        <img src="{{ asset('images/logo/hoka.webp') }}" alt="Hoka" class="max-w-full max-h-full object-contain">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Categories Section -->
-    <section class="py-16">
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-blue-950 mb-4">Shop by Category</h2>
-                <p class="text-gray-600">Browse our collection by your favorite brands</p>
+                <h2 class="text-4xl font-bold text-blue-950 mb-2">Shop by Category</h2>
+                <p class="text-gray-600 text-lg">Find the perfect fit for everyone</p>
             </div>
-            
+
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                @foreach([
-                    ['Nike','bg-blue-100'],
-                    ['Adidas','bg-green-100'],
-                    ['Puma','bg-purple-100'],
-                    ['New Balance','bg-red-100']
-                ] as [$cat,$color])
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition cursor-pointer text-center">
-                    <div class="{{ $color }} w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-3xl">👟</span>
-                    </div>
-                    <h3 class="font-bold text-lg">{{ $cat }}</h3>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Products Section -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-blue-950 mb-4">Featured Products</h2>
-                <p class="text-gray-600">Check out our best selling sneakers</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                <!-- Product Card 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" alt="Product" class="w-full h-64 object-cover">
-                        <span class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm">New</span>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Nike Air Max 270</h3>
-                        <p class="text-gray-600 text-sm mb-4">Men's Shoes</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-blue-950">$150</span>
-                            <button class="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition">Add to Cart</button>
-                        </div>
+                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img src="{{ asset('images/MENS.webp') }}" alt="Men's Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-2xl font-bold text-white">Men's</h3>
                     </div>
                 </div>
-
-                <!-- Product Card 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=400" alt="Product" class="w-full h-64 object-cover">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Adidas Ultraboost</h3>
-                        <p class="text-gray-600 text-sm mb-4">Running Shoes</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-blue-950">$180</span>
-                            <button class="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition">Add to Cart</button>
-                        </div>
+                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img src="{{ asset('images/WOMENS.webp') }}" alt="Women's Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-2xl font-bold text-white">Women's</h3>
                     </div>
                 </div>
-
-                <!-- Product Card 3 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400" alt="Product" class="w-full h-64 object-cover">
-                        <span class="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Sale</span>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Puma RS-X</h3>
-                        <p class="text-gray-600 text-sm mb-4">Lifestyle Shoes</p>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <span class="text-2xl font-bold text-blue-950">$120</span>
-                                <span class="text-sm text-gray-400 line-through ml-2">$160</span>
-                            </div>
-                            <button class="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition">Add to Cart</button>
-                        </div>
+                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img src="{{ asset('images/KIDS_3.webp') }}" alt="Kids' Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-2xl font-bold text-white">Kid's</h3>
                     </div>
                 </div>
-
-                <!-- Product Card 4 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400" alt="Product" class="w-full h-64 object-cover">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">New Balance 574</h3>
-                        <p class="text-gray-600 text-sm mb-4">Classic Sneakers</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-2xl font-bold text-blue-950">$130</span>
-                            <button class="bg-blue-950 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition">Add to Cart</button>
-                        </div>
+                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img src="{{ asset('images/local.jpg') }}" alt="Local Brands" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-2xl font-bold text-white">Local</h3>
                     </div>
                 </div>
-            </div>
-
-            <div class="text-center mt-12">
-                <button class="px-8 py-3 bg-blue-950 text-white rounded-lg font-semibold hover:bg-blue-900 transition">View All Products</button>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-16">
+    <section class="py-20 bg-slate-50">
         <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-950 mb-3">Why Choose Us</h2>
+                <p class="text-gray-600 text-lg">Our advantages based on customers review and industry standards</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-10">
+
                 <div class="text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-blue-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    <div class="bg-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-blue-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-bold text-xl mb-2">Authentic Products</h3>
-                    <p class="text-gray-600">100% original sneakers from authorized retailers</p>
+                    <h3 class="font-bold text-2xl mb-3 text-blue-950">100% Authentic</h3>
+                    <p class="text-gray-600 leading-relaxed">All products are guaranteed authentic from authorized retailers and distributors</p>
                 </div>
 
                 <div class="text-center">
-                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    <div class="bg-green-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                         </svg>
                     </div>
-                    <h3 class="font-bold text-xl mb-2">Fast Delivery</h3>
-                    <p class="text-gray-600">Express shipping to your doorstep within 2-3 days</p>
+                    <h3 class="font-bold text-2xl mb-3 text-blue-950">Fast Delivery</h3>
+                    <p class="text-gray-600 leading-relaxed">Express shipping nationwide with guaranteed delivery within 2-3 business days</p>
                 </div>
 
                 <div class="text-center">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-purple-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-bold text-xl mb-2">Secure Payment</h3>
-                    <p class="text-gray-600">Safe and secure payment methods for your peace of mind</p>
+                    <h3 class="font-bold text-2xl mb-3 text-blue-950">Secure Payment</h3>
+                    <p class="text-gray-600 leading-relaxed">Multiple secure payment options with buyer protection for peace of mind</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="pt-20 pb-5 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">All-Time Bests</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button class="swiper-button-prev-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button class="swiper-button-next-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Swiper Container -->
+            <div class="swiper productsSwiper">
+                <div class="swiper-wrapper">
+
+                    <!-- Product Card 1 - Adidas Samba -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/nike-airforce1-men.webp') }}" alt="Nike Air Force 1 Men's Shoes - White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Force 1 Men's Shoes - White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 1.600.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 - Adidas Samba -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/adidas-sambawhite.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 - Adidas Samba Black -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 800.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.200.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Dunk Low Retro Men's Basketball Shoes - White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 774.500</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.550.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">50% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 - Converse Chuck Taylor -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/converse-chuck-taylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">CONVERSE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Chuck Taylor All Star High Top - Black</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-gray-900">Rp. 899.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 - Vans Old Skool -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/vans-old-skool.webp') }}" alt="Vans Old Skool" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">VANS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Old Skool Classic - Black/White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 750.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.100.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">32% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5 - New Balance 530 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/new-balance-530.webp') }}" alt="New Balance 530" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NEW BALANCE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">530 Unisex Lifestyle Shoes - White Silver</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-gray-900">Rp. 1.399.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 6 - Puma Suede -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/puma-suede.webp') }}" alt="Puma Suede" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">PUMA</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Suede Classic XXI Shoes - Peacoat White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 950.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">27% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 7 - Asics Gel Kayano -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/asics-gel-kayano.webp') }}" alt="Asics Gel Kayano" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">ASICS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">GEL-KAYANO 14 Running Shoes - Cream</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-gray-900">Rp. 2.199.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 8 - Reebok Club C -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/reebok-club-c.webp') }}" alt="Reebok Club C" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">REEBOK</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Club C 85 Vintage Shoes - White Green</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 799.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">38% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- NEW: Brand Collaboration Section -->
+    <section class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-950 mb-3">Hottest Collaborations Available!!</h2>
+                <p class="text-gray-600 text-lg">Exclusive collaborations and limited edition drops</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Large Featured Card -->
+                <div class="lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <a href="#"><img src="{{ asset('images/banners/banner-compasstds.jpg') }}" alt=""></a>
+                </div>
+
+                <!-- Small Cards Column -->
+                <div class="flex flex-col gap-6">
+                    <!-- Card 1 -->
+                    <div class="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                        <a href="#"><img src="{{ asset('images/banners/adizero-banner.jpg') }}" alt=""></a>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                        <a href="#"><img src="{{ asset('images/banners/airjordan1-banner.jpg') }}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
+                <div class="bg-white rounded-xl p-8 text-center shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-xl text-blue-950 mb-2">Best Price Guarantee</h4>
+                    <p class="text-gray-600">We match any competitor's price on authentic sneakers</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 text-center shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-xl text-blue-950 mb-2">Quality Assured</h4>
+                    <p class="text-gray-600">Every pair thoroughly inspected before shipping</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 text-center shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-xl text-blue-950 mb-2">Exclusive Access</h4>
+                    <p class="text-gray-600">First dibs on limited edition releases and collabs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Arrival Products Section -->
+    <section class="pt-16 pb-6 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">News Arrival</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button class="swiper-button-prev-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button class="swiper-button-next-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Swiper Container -->
+            <div class="swiper productsSwiper">
+                <div class="swiper-wrapper">
+
+                    <!-- Product Card 1 - Adidas Samba -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/nike-airforce1-men.webp') }}" alt="Nike Air Force 1 Men's Shoes - White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Force 1 Men's Shoes - White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 1.600.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 - Adidas Samba -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/adidas-sambawhite.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 - Adidas Samba Black -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 800.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.200.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Dunk Low Retro Men's Basketball Shoes - White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 774.500</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.550.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">50% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 - Converse Chuck Taylor -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/converse-chuck-taylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">CONVERSE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Chuck Taylor All Star High Top - Black</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-gray-900">Rp. 899.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 - Vans Old Skool -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/vans-old-skool.webp') }}" alt="Vans Old Skool" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">VANS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Old Skool Classic - Black/White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 750.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.100.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">32% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5 - New Balance 530 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/new-balance-530.webp') }}" alt="New Balance 530" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">NEW BALANCE</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">530 Unisex Lifestyle Shoes - White Silver</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-gray-900">Rp. 1.399.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 6 - Puma Suede -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/puma-suede.webp') }}" alt="Puma Suede" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">PUMA</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Suede Classic XXI Shoes - Peacoat White</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 950.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">27% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 7 - Asics Gel Kayano -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/asics-gel-kayano.webp') }}" alt="Asics Gel Kayano" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">ASICS</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">GEL-KAYANO 14 Running Shoes - Cream</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-gray-900">Rp. 2.199.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 8 - Reebok Club C -->
+                    <div class="swiper-slide">
+                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
+                            <div class="relative bg-gray-50 p-6">
+                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
+                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <img src="{{ asset('images/products/reebok-club-c.webp') }}" alt="Reebok Club C" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">REEBOK</p>
+                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Club C 85 Vintage Shoes - White Green</h3>
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-lg font-bold text-red-600">Rp. 799.000</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
+                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">38% OFF</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Our Top Brands Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Shop Our Top Brands</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Nike -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-green-800 to-green-900 relative">
+                        <img src="{{asset('images/nike.webp') }}"
+                            alt="Nike"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">Nike</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Jordan -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-red-600 to-red-800 relative">
+                        <img src="{{asset('images/jordan.webp') }}"
+                            alt="Jordan"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">Jordan</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- New Balance -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-teal-700 to-teal-900 relative">
+                        <img src="{{asset('images/newbalance.webp') }}"
+                            alt="New Balance"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">New Balance</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- LCKR -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-red-700 to-red-900 relative">
+                        <img src="{{asset('images/compass.jpg') }}"
+                            alt="LCKR"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">Compass</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Adidas -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-red-600 to-red-800 relative">
+                        <img src="{{asset('images/adidas-home.webp') }}"
+                            alt="Adidas"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">Adidas</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Timberland -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-teal-800 to-teal-950 relative">
+                        <img src="{{asset('images/converse-home.jpg') }}"
+                            alt="Timberland"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">Converse</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- UGG -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-red-700 to-red-900 relative">
+                        <img src="{{asset('images/hoka-home.jpg') }}"
+                            alt="HOKA"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">HOKA</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Cozi -->
+                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-linear-to-br from-teal-800 to-teal-950 relative">
+                        <img src="{{asset('images/asics-home.jpg') }}"
+                            alt="Asics"
+                            class="w-full h-full transition-transform duration-300">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg text-gray-900">Asics</span>
+                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Customer Reviews Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-950 mb-3">What Our Customers Say</h2>
+                <p class="text-gray-600 text-lg">Real reviews from real sneakerheads</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-slate-50 rounded-2xl p-8 relative">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">"Best sneaker store in Indonesia! Fast shipping, authentic products, and amazing customer service. I've ordered 5 pairs already!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-950 rounded-full flex items-center justify-center text-white font-bold">
+                            JD
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">John Doe</h4>
+                            <p class="text-sm text-gray-500">Jakarta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-slate-50 rounded-2xl p-8 relative">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">"Great selection of brands and styles. Prices are competitive and they often have sales. Highly recommended for sneaker lovers!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-950 rounded-full flex items-center justify-center text-white font-bold">
+                            SA
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Sarah Ahmad</h4>
+                            <p class="text-sm text-gray-500">Surabaya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-slate-50 rounded-2xl p-8 relative">
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">"Finally found a reliable sneaker store online. All products are genuine and packaging is perfect. Will definitely order again!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-950 rounded-full flex items-center justify-center text-white font-bold">
+                            BP
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Budi Pratama</h4>
+                            <p class="text-sm text-gray-500">Bandung</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Footer -->
-    <footer class="bg-blue-950 text-white py-12">
-        <div class="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">
-            <div class="md:flex md:justify-between">
-            <div class="mb-6 md:mb-0">
-                <a href="#" class="flex items-center">
-                    <img src="{{ asset('images/logo-sm.png') }}" class="h-7 me-3" alt="MySneakers Logo" />
-                    <span class="text-heading self-center text-2xl font-semibold whitespace-nowrap">MySneakers</span>
-                </a>
-            </div>
-            <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+    <footer class="bg-blue-950 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+
+                <!-- Brand Column -->
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="{{ asset('images/logo-transparent.png') }}" class="w-auto h-17" alt="MySneakers Logo" />
+                    </a>
+                    <p class="text-gray-300 mb-6">Your ultimate destination for premium sneakers from the world's best brands.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Shop Column -->
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Resources</h2>
-                    <ul class="text-body font-medium">
-                        <li class="mb-4">
-                            <a href="#" class="hover:underline">Docs</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Tailwind CSS</a>
-                        </li>
+                    <h3 class="text-lg font-bold mb-4">Shop</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition">Men's Sneakers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Women's Sneakers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Kids' Sneakers</a></li>
+                        <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sale</a></li>
                     </ul>
                 </div>
+
+                <!-- Support Column -->
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Follow us</h2>
-                    <ul class="text-body font-medium">
-                        <li class="mb-4">
-                            <a href="#" class="hover:underline ">Github</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Discord</a>
-                        </li>
+                    <h3 class="text-lg font-bold mb-4">Support</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
                     </ul>
                 </div>
+
+                <!-- Company Column -->
                 <div>
-                    <h2 class="mb-6 text-sm font-semibold text-heading uppercase">Legal</h2>
-                    <ul class="text-body font-medium">
-                        <li class="mb-4">
-                            <a href="#" class="hover:underline">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Terms &amp; Conditions</a>
-                        </li>
+                    <h3 class="text-lg font-bold mb-4">Company</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
                     </ul>
                 </div>
+
             </div>
-        </div>
-        <hr class="my-6 border-default sm:mx-auto lg:my-8" />
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-body sm:text-center">© 2025 MySneakers. All Rights Reserved.</span>
-            <div class="flex mt-4 sm:justify-center sm:mt-0 gap-5">
-                <!-- Social icons contoh -->
-                <a href="#" class="text-body hover:text-heading">
-                    <span class="sr-only">Facebook</span>
-                    FB
-                </a>
-                <a href="#" class="text-body hover:text-heading">
-                    <span class="sr-only">Twitter</span>
-                    TW
-                </a>
-                <a href="#" class="text-body hover:text-heading">
-                    <span class="sr-only">GitHub</span>
-                    GH
-                </a>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/20 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-gray-300 text-sm">
+                        © 2025 MySneakers. All rights reserved.
+                    </p>
+                    <div class="flex gap-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" class="h-8 opacity-70 hover:opacity-100 transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="h-8 opacity-70 hover:opacity-100 transition">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-8 opacity-70 hover:opacity-100 transition">
+                    </div>
+                </div>
             </div>
-        </div>
         </div>
     </footer>
 
-    <!-- OPTIONAL: Tutup dropdown jika user mulai scroll -->
-    
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      let lastScrollY = window.scrollY;
-      window.addEventListener('scroll', () => {
-        if(Math.abs(window.scrollY - lastScrollY) > 5){
-          document.querySelectorAll('.group').forEach(g => {  // Paksa hilang dengan menyingkirkan hover via kelas tambahan jika perlu
-            g.classList.remove('hover');
-          });
-        }
-        lastScrollY = window.scrollY;
-      });
+        const swiper = new Swiper('.productsSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                },
+                1280: {
+                    slidesPerView: 5,
+                    spaceBetween: 24,
+                }
+            }
+        });
+
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            if (Math.abs(window.scrollY - lastScrollY) > 5) {
+                document.querySelectorAll('.group').forEach(g => { // Paksa hilang dengan menyingkirkan hover via kelas tambahan jika perlu
+                    g.classList.remove('hover');
+                });
+            }
+            lastScrollY = window.scrollY;
+        });
     </script>
-   
+    <script src="{{ asset('resources/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+
 </body>
+
 </html>
