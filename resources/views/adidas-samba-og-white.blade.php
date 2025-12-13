@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nike Dunk Low - MySneakers</title>
+    <title>Nike Air Force - MySneakers</title>
     <link rel="shortcut icon" href="{{ asset('images/logo-sm1.jpg') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
@@ -329,7 +329,7 @@
                 <span>/</span>
                 <a href="#" class="hover:text-blue-950">Men's</a>
                 <span>/</span>
-                <span class="text-gray-900 font-medium">Nike Dunk Low</span>
+                <span class="text-gray-900 font-medium">Nike</span>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-12">
@@ -338,26 +338,26 @@
             <div>
                 <!-- Main Image -->
                 <div class="bg-white rounded-2xl p-8 mb-6 border border-gray-200">
-                    <img src="{{ asset('images/products/detail-product/nike-pandalow-right.webp') }}" alt="Nike Dunk Low" class="w-auto aspect-square object-contain" id="mainImage">
+                    <img src="{{ asset('images/products/detail-product/samba-og-white-side.webp') }}" alt="Nike Dunk Low" class="w-auto aspect-square object-contain" id="mainImage">
                 </div>
 
                 <!-- Thumbnail Gallery -->
                 <div class="grid grid-cols-4 gap-4">
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-blue-950 hover:border-blue-900 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-right.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-right.webp') }}" alt="View 1" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-white-side.webp') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-white-side.webp') }}" alt="View 1" class="w-full aspect-square object-contain">
                     </button>
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-blue-950 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-left.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-left.webp') }}" alt="View 2" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-white-back.webp') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-white-back.webp') }}" alt="View 2" class="w-full aspect-square object-contain">
                     </button>
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-blue-950 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-back.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-back.webp') }}" alt="View 3" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-white-top.webp') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-white-top.webp') }}" alt="View 3" class="w-full aspect-square object-contain">
                     </button>
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-blue-950 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-up.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-up.webp') }}" alt="View 4" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-white-sol.webp') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-white-sol.webp') }}" alt="View 4" class="w-full aspect-square object-contain">
                     </button>
                 </div>
             </div>
@@ -371,21 +371,21 @@
                         <span class="text-lg font-bold text-gray-900">4.7</span>
                         <span class="text-gray-500">(227)</span>
                     </div>
-                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">SAVE $18</span>
+                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">HEMAT Rp.600.000</span>
                 </div>
 
                 <!-- Product Name -->
-                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Nike Dunk Low Retro White Black Panda</h1>
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Adidas Samba OG Shoes - Cloud White</h1>
                 <p class="text-gray-600 mb-1">Boys' Grade School</p>
-                <a href="#" class="text-blue-950 font-semibold text-sm hover:underline mb-6 inline-block">Explore Nike</a>
+                <a href="#" class="text-blue-950 font-semibold text-sm hover:underline mb-6 inline-block">Explore Adidasq</a>
 
                 <!-- Price -->
                 <div class="mb-6">
                     <div class="flex items-baseline gap-3">
-                        <span class="text-4xl font-bold text-gray-900">Rp. 1.729.000</span>
+                        <span class="text-4xl font-bold text-gray-900">Rp. 1.200.000</span>
                         <span class="text-2xl text-gray-400 line-through">Rp. 1.800.000</span>
                     </div>
-                    <p class="text-green-600 font-semibold mt-1">20% off</p>
+                    <p class="text-green-600 font-semibold mt-1">33,33% off</p>
                 </div>
 
                 <!-- Size Selector -->
@@ -454,7 +454,7 @@
                     <div>
                         <h3 class="font-bold text-gray-900 mb-3">Description</h3>
                         <p class="text-gray-700 leading-relaxed">
-                            The Nike Dunk Low brings '80s basketball style back to the streets while its padded, low-cut collar lets you take your game anywhere—in comfort. Perforations on the toe add throwback hoops flair.
+                            Born on the pitch, the Samba is a timeless icon of street style. This silhouette stays true to its legacy with a tasteful, low-profile design
                         </p>
                     </div>
                     
