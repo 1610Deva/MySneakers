@@ -21,6 +21,10 @@ Route::get('home', function () {
     return view('home');
 });
 
+Route::get('checkout', function () {
+    return view('payment');
+});
+
 Route::get('productdetail', function () {
     return view('productDetail');
 });
@@ -57,4 +61,8 @@ Route::post('register', function (Request $request) {
     $user->save();
 
     return redirect('dashboard');
+});
+
+Route::get('nike-dunklow', function () {
+    return view('nike-dunklow');
 });

@@ -13,15 +13,106 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+    <!-- Plugin -->
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
-<body class="bg-gray-50" style="font-family: 'DM Sans', sans-serif;">
+<body class="bg-gray-50" style="font-family: 'DM Sans', sans-serif;" x-data="shoppingCart()">
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        /* Smooth momentum scrolling for iOS */
+        .scrollbar-hide {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Swiper Card Enhancements for New Arrivals Section */
+        .swiper-slide {
+            height: auto;
+        }
+
+        .swiper-slide>div {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Product Card Responsive Improvements */
+        @media (max-width: 640px) {
+
+            /* Mobile: Smaller cart button positioning */
+            .product-card-btn {
+                top: 0.5rem !important;
+                right: 0.5rem !important;
+                width: 2.25rem !important;
+                height: 2.25rem !important;
+            }
+
+            .product-card-btn svg {
+                width: 1.25rem !important;
+                height: 1.25rem !important;
+            }
+
+            /* Mobile: Compact product info */
+            .product-card-content {
+                padding: 0.75rem !important;
+            }
+
+            .product-title {
+                font-size: 0.875rem !important;
+                line-height: 1.25rem !important;
+                min-height: 2.5rem !important;
+            }
+
+            .product-price {
+                font-size: 1rem !important;
+            }
+
+            .product-badge {
+                padding: 0.125rem 0.375rem !important;
+                font-size: 0.75rem !important;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+
+            /* Tablet: Medium cart button */
+            .product-card-btn {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+            }
+
+            .product-card-btn svg {
+                width: 1.375rem !important;
+                height: 1.375rem !important;
+            }
+        }
+    </style>
 
     <!-- Top Banner -->
     <div class="bg-blue-950 text-white py-2.5">
         <div class="container mx-auto px-6">
             <p class="text-sm font-medium text-center">
-                ✨ Free Shipping on Orders Over Rp 500.000
+                💯 Guaranteed Authentic Sneakers in MySneakers
                 <a href="#" class="underline ml-2 hover:text-gray-200">Shop Now</a>
             </p>
         </div>
@@ -68,7 +159,7 @@
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
-                            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                            <span x-show="totalItems > 0" x-text="totalItems" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"></span>
                         </button>
                     </div>
                 </div>
@@ -78,39 +169,35 @@
         <!-- Navigation Menu -->
         <div class="bg-white relative">
             <div class="container mx-auto px-6">
-                <div class="flex items-center justify-center py-3">
-                    <div class="flex items-center gap-8">
+                <!-- Mobile: Horizontal scroll, Desktop: Centered -->
+                <div class="overflow-x-auto overflow-y-hidden scrollbar-hide py-3 md:overflow-visible">
+                    <div class="flex items-center justify-start md:justify-center gap-4 md:gap-8 whitespace-nowrap min-w-max md:min-w-0">
 
                         <!-- Men's Mega Menu -->
-                        <div class="relative group">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Men's</a>
+                        <div class="relative group shrink-0">
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Men's</a>
                         </div>
 
                         <!-- Women's Mega Menu -->
-                        <div class="relative group">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Women's</a>
+                        <div class="relative group shrink-0">
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Women's</a>
                         </div>
 
-                        <div class="relative group">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Kid's</a>
+                        <div class="relative group shrink-0">
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Kid's</a>
                         </div>
 
-                        <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition">Sale</a>
-                        <span class="text-gray-300">|</span>
+                        <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition shrink-0 text-sm md:text-base">Sale</a>
+                        <span class="text-gray-300 shrink-0">|</span>
 
                         <!-- Brands Mega Menu - FIXED -->
-                        <div class="relative group">
-                            <a href="#" class="text-gray-700 hover:text-blue-950 transition">Brands</a>
+                        <div class="relative group shrink-0">
+                            <a href="#" class="text-gray-700 hover:text-blue-950 transition text-sm md:text-base">Brands</a>
                             <!-- Fixed dropdown positioning -->
                             <div class="absolute left-1/2 -translate-x-1/2 top-full w-screen max-w-7xl invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 ease-in-out pt-2 z-50">
                                 <div class="bg-white shadow-xl border border-gray-200 py-8 px-6 rounded-lg">
                                     <h3 class="text-xl font-bold mb-6 text-center text-gray-900">Shop by Brand</h3>
                                     <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                        <!-- @foreach(['Nike','Adidas','Puma','New Balance','Jordan','Asics','Reebok','Converse','Vans','Under Armour','Skechers','Fila'] as $brand)
-                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex items-center justify-center group/item">
-                                            <span class="text-sm font-medium text-gray-700 group-hover/item:text-blue-950">{{ $brand }}</span>
-                                        </a>
-                                        @endforeach -->
                                         <!-- Nike -->
                                         <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
                                             <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="h-12 w-auto object-contain">
@@ -187,8 +274,8 @@
                             </div>
                         </div>
 
-                        <a href="#" class="text-gray-700 hover:text-blue-950 transition">Releases</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-950 transition">New Arrivals</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-950 transition shrink-0 text-sm md:text-base">Releases</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-950 transition shrink-0 text-sm md:text-base">New Arrivals</a>
                     </div>
                 </div>
             </div>
@@ -202,7 +289,7 @@
             <el-dialog-backdrop class="absolute inset-0 bg-gray-500/75 transition-opacity duration-200 ease-in-out data-closed:opacity-0"></el-dialog-backdrop>
 
             <div tabindex="0" class="absolute inset-0 pl-10 focus:outline-none sm:pl-16">
-                <el-dialog-panel class="ml-auto block size-full max-w-md transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700">
+                <el-dialog-panel class="ml-auto block size-full max-w-md transform transition duration-50 ease-in-out data-closed:translate-x-full sm:duration-300">
                     <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
                         <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                             <div class="flex items-start justify-between">
@@ -220,79 +307,43 @@
 
                             <div class="mt-8">
                                 <div class="flow-root">
-                                    <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                        <li class="flex py-6">
-                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="size-full object-cover" />
-                                            </div>
+                                    <!-- Empty Cart Message -->
+                                    <div x-show="items.length === 0" class="text-center py-12">
+                                        <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                        </svg>
+                                        <h3 class="mt-4 text-lg font-medium text-gray-900">Your cart is empty</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Start adding some sneakers!</p>
+                                    </div>
 
-                                            <div class="ml-4 flex flex-1 flex-col">
-                                                <div>
-                                                    <div class="flex justify-between text-base font-medium text-gray-900">
-                                                        <h3>
-                                                            <a href="#">Throwback Hip Bag</a>
-                                                        </h3>
-                                                        <p class="ml-4">$90.00</p>
-                                                    </div>
-                                                    <p class="mt-1 text-sm text-gray-500">Salmon</p>
+                                    <!-- Cart Items -->
+                                    <ul role="list" class="-my-6 divide-y divide-gray-200" x-show="items.length > 0">
+                                        <template x-for="item in items" :key="item.id">
+                                            <li class="flex py-6">
+                                                <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                    <img :src="item.image" :alt="item.name" class="size-full object-cover" />
                                                 </div>
-                                                <div class="flex flex-1 items-end justify-between text-sm">
-                                                    <p class="text-gray-500">Qty 1</p>
 
-                                                    <div class="flex">
-                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                <div class="ml-4 flex flex-1 flex-col">
+                                                    <div>
+                                                        <div class="flex justify-between text-base font-medium text-gray-900">
+                                                            <h3>
+                                                                <a href="#" x-text="item.name"></a>
+                                                            </h3>
+                                                            <p class="ml-4" x-text="formatRupiah(item.price)"></p>
+                                                        </div>
+                                                        <p class="mt-1 text-sm text-gray-500" x-text="item.brand"></p>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex py-6">
-                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="size-full object-cover" />
-                                            </div>
+                                                    <div class="flex flex-1 items-end justify-between text-sm">
+                                                        <p class="text-gray-500">Qty <span x-text="item.quantity"></span></p>
 
-                                            <div class="ml-4 flex flex-1 flex-col">
-                                                <div>
-                                                    <div class="flex justify-between text-base font-medium text-gray-900">
-                                                        <h3>
-                                                            <a href="#">Medium Stuff Satchel</a>
-                                                        </h3>
-                                                        <p class="ml-4">$32.00</p>
-                                                    </div>
-                                                    <p class="mt-1 text-sm text-gray-500">Blue</p>
-                                                </div>
-                                                <div class="flex flex-1 items-end justify-between text-sm">
-                                                    <p class="text-gray-500">Qty 1</p>
-
-                                                    <div class="flex">
-                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                        <div class="flex">
+                                                            <button type="button" @click="removeFromCart(item.id)" class="font-medium text-blue-950 hover:text-blue-800">Remove</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="flex py-6">
-                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-03.jpg" alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls." class="size-full object-cover" />
-                                            </div>
-
-                                            <div class="ml-4 flex flex-1 flex-col">
-                                                <div>
-                                                    <div class="flex justify-between text-base font-medium text-gray-900">
-                                                        <h3>
-                                                            <a href="#">Zip Tote Basket</a>
-                                                        </h3>
-                                                        <p class="ml-4">$140.00</p>
-                                                    </div>
-                                                    <p class="mt-1 text-sm text-gray-500">White and black</p>
-                                                </div>
-                                                <div class="flex flex-1 items-end justify-between text-sm">
-                                                    <p class="text-gray-500">Qty 1</p>
-
-                                                    <div class="flex">
-                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        </template>
                                     </ul>
                                 </div>
                             </div>
@@ -301,16 +352,16 @@
                         <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                             <div class="flex justify-between text-base font-medium text-gray-900">
                                 <p>Subtotal</p>
-                                <p>$262.00</p>
+                                <p x-text="formatRupiah(totalPrice)"></p>
                             </div>
                             <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                             <div class="mt-6">
-                                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Checkout</a>
+                                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-blue-950 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-900" :class="{ 'opacity-50 cursor-not-allowed': items.length === 0 }" @click.prevent="items.length > 0 && alert('Checkout feature coming soon!')">Checkout</a>
                             </div>
                             <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>
                                     or
-                                    <button type="button" command="close" commandfor="drawer" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <button type="button" command="close" commandfor="drawer" class="font-medium text-blue-950 hover:text-blue-800">
                                         Continue Shopping
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>
@@ -323,41 +374,46 @@
         </dialog>
     </el-dialog>
 
-    <!-- Hero Section with Background Image -->
-    <section class="relative h-[550px] md:h-[700px] overflow-hidden">
-        <!-- Background Image with Gradient Overlay -->
-        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=2000');">
-            <div class="absolute inset-0 bg-linear-to-r from-blue-950/95 via-blue-950/75 to-blue-950/40"></div>
-        </div>
+    <!-- Hero Section with Background Video -->
+    <section class="relative h-[500px] md:h-[700px] flex items-center justify-center overflow-hidden">
 
-        <!-- Hero Content -->
-        <div class="relative container mx-auto px-6 h-full flex items-center">
-            <div class="max-w-2xl">
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="{{ asset('video/videobanner.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 
-                <div class="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-semibold mb-6">
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
+
+        <div class="absolute container mx-auto px-4 sm:px-6 h-full flex items-center z-10">
+            <div class="max-w-2xl w-full">
+                <div class="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
                     🔥 New Season Collection 2025
                 </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-4 sm:mb-6 leading-tight tracking-tight drop-shadow-md">
                     Step Into<br />
                     Your Style
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-100 mb-10 leading-relaxed max-w-xl">
+
+                <p class="text-base sm:text-xl md:text-2xl text-gray-100 mb-8 sm:mb-10 leading-relaxed max-w-xl drop-shadow-sm">
                     Discover premium sneakers from the world's top brands. Authentic products, unbeatable prices.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#featured" class="inline-block px-10 py-4 bg-blue-950 text-white text-lg font-bold rounded-lg hover:bg-blue-900 transition-all transform hover:scale-105 shadow-xl text-center">
+
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                    <a href="#products" class="inline-block w-full sm:w-auto px-8 py-3.5 sm:px-10 sm:py-4 bg-blue-950 text-white text-base sm:text-lg font-bold rounded-lg hover:bg-blue-900 transition-all transform hover:scale-105 shadow-xl text-center">
                         Shop Now
                     </a>
-                    <a href="#brands" class="inline-block px-10 py-4 bg-white/10 backdrop-blur-sm border-2 border-white text-white text-lg font-bold rounded-lg hover:bg-white hover:text-blue-950 transition-all text-center">
+                    <a href="#brands" class="inline-block w-full sm:w-auto px-8 py-3.5 sm:px-10 sm:py-4 bg-white/10 backdrop-blur-sm border-2 border-white text-white text-base sm:text-lg font-bold rounded-lg hover:bg-white hover:text-blue-950 transition-all text-center">
                         Explore Brands
                     </a>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- NEW: Infinite Brand Logo Slider -->
+
+    <!-- Infinite Brand Logo Slider -->
     <section class="py-6 bg-white overflow-hidden">
         <style>
             @keyframes scroll {
@@ -388,80 +444,80 @@
             <div class="flex animate-scroll">
                 <!-- First Set of Logos -->
                 <div class="flex items-center gap-16 px-8">
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/adidas.jpg') }}" alt="Adidas" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/puma.webp') }}" alt="Puma" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/newbalance.webp') }}" alt="New Balance" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/jordan.webp') }}" alt="Jordan" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/asics.webp') }}" alt="Asics" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/reebok.jpg') }}" alt="Reebok" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/converse.webp') }}" alt="Converse" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/vans.webp') }}" alt="Vans" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/underarmour.webp') }}" alt="Under Armour" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/compass.png') }}" alt="Compass" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/hoka.webp') }}" alt="Hoka" class="max-w-full max-h-full object-contain">
                     </div>
                 </div>
 
                 <!-- Duplicate Set for Seamless Loop -->
                 <div class="flex items-center gap-16 px-8">
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/adidas.jpg') }}" alt="Adidas" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/puma.webp') }}" alt="Puma" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/newbalance.webp') }}" alt="New Balance" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/jordan.webp') }}" alt="Jordan" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/asics.webp') }}" alt="Asics" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/reebok.jpg') }}" alt="Reebok" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/converse.webp') }}" alt="Converse" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/vans.webp') }}" alt="Vans" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/underarmour.webp') }}" alt="Under Armour" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/compass.png') }}" alt="Compass" class="max-w-full max-h-full object-contain">
                     </div>
-                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <div class="shrink-0 w-32 h-24 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-10">
                         <img src="{{ asset('images/logo/hoka.webp') }}" alt="Hoka" class="max-w-full max-h-full object-contain">
                     </div>
                 </div>
@@ -472,38 +528,38 @@
     <!-- Categories Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-blue-950 mb-2">Shop by Category</h2>
-                <p class="text-gray-600 text-lg">Find the perfect fit for everyone</p>
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-950 mb-2">Shop by Category</h2>
+                <p class="text-gray-600 text-sm sm:text-base md:text-lg">Find the perfect fit for everyone</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+                <div class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[3/4]">
                     <img src="{{ asset('images/MENS.webp') }}" alt="Men's Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <h3 class="text-2xl font-bold text-white">Men's</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 sm:bottom-6 sm:left-6">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Men's</h3>
                     </div>
                 </div>
-                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[3/4]">
                     <img src="{{ asset('images/WOMENS.webp') }}" alt="Women's Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <h3 class="text-2xl font-bold text-white">Women's</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 sm:bottom-6 sm:left-6">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Women's</h3>
                     </div>
                 </div>
-                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[3/4]">
                     <img src="{{ asset('images/KIDS_3.webp') }}" alt="Kids' Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <h3 class="text-2xl font-bold text-white">Kid's</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 sm:bottom-6 sm:left-6">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Kid's</h3>
                     </div>
                 </div>
-                <div class="relative group cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[3/4]">
                     <img src="{{ asset('images/local.jpg') }}" alt="Local Brands" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <h3 class="text-2xl font-bold text-white">Local</h3>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 sm:bottom-6 sm:left-6">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Local</h3>
                     </div>
                 </div>
             </div>
@@ -553,294 +609,285 @@
         </div>
     </section>
 
-    <!-- Featured Products Section -->
-    <section class="pt-20 pb-5 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="flex items-center justify-between mb-8">
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900">All-Time Bests</h2>
-                </div>
-                <div class="flex gap-2">
-                    <button class="swiper-button-prev-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button class="swiper-button-next-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                </div>
+    <!-- All Time Best Seller Products Section -->
+    <section class="py-12 sm:py-16 md:py-20 bg-white" id="products">
+        <div class="container mx-auto px-4 sm:px-6">
+            <!-- Section Header -->
+            <div class="mb-6 sm:mb-8 md:mb-10">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">All-Time Bests</h2>
+                <p class="text-sm sm:text-base text-gray-600 mt-2">Discover our most popular sneakers</p>
             </div>
 
-            <!-- Swiper Container -->
-            <div class="swiper productsSwiper">
-                <div class="swiper-wrapper">
+            <!-- Fluid Grid Container - Mobile First -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
 
-                    <!-- Product Card 1 - Adidas Samba -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/nike-airforce1-men.webp') }}" alt="Nike Air Force 1 Men's Shoes - White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                <!-- Product Card 1 - Nike Air Force 1 -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <!-- Product Image Container -->
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <!-- Add to Cart Button - Touch Optimized -->
+                        <button @click="addToCart({ id: 1, name: 'Air Force 1 Men\'s Shoes - White', brand: 'NIKE', price: 1600000, image: '{{ asset('images/products/nike-airforce1-men.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <!-- Product Image -->
+                        <img src="{{ asset('images/products/nike-airforce1-men.webp') }}"
+                            alt="Nike Air Force 1 Men's Shoes - White"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <!-- Product Info Container -->
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <!-- Brand -->
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
+                        <!-- Product Title -->
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Air Force 1 Men's Shoes - White
+                        </h3>
+                        <!-- Price Container -->
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.600.000</span>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Force 1 Men's Shoes - White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 1.600.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
-                                </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.800.000</span>
+                                <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Product Card 2 - Adidas Samba -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/adidas-sambawhite.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                </article>
+
+                <!-- Product Card 2 - Adidas Samba White -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 2, name: 'Samba OG Shoes - Cloud White', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambawhite.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <img src="{{ asset('images/products/adidas-sambawhite.webp') }}"
+                            alt="Adidas Samba OG Shoes - Cloud White"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ADIDAS</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Samba OG Shoes - Cloud White
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.200.000</span>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
-                                </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.800.000</span>
+                                <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- Product Card 3 - Adidas Samba Black -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                <!-- Product Card 3 - Adidas Samba Black -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 3, name: 'Samba OG Shoes - Black', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambablack.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <img src="{{ asset('images/products/adidas-sambablack.webp') }}"
+                            alt="Adidas Samba OG Shoes - Black"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ADIDAS</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Samba OG Shoes - Black
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.200.000</span>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
-                                </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.800.000</span>
+                                <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                <!-- Product Card 4 - Nike Air Jordan 1 -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <img src="{{ asset('images/products/nike-airjordan1.webp') }}"
+                            alt="Nike Air Jordan 1 Retro Mid"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 800.000</span>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 800.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.200.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
-                                </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.200.000</span>
+                                <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                <!-- Product Card 5 - Nike Dunk Low -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 5, name: 'Dunk Low Retro - White', brand: 'NIKE', price: 774500, image: '{{ asset('images/products/nike-pandalow.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <a href="{{ url('nike-dunklow') }}">
+                            <img src="{{ asset('images/products/nike-pandalow.webp') }}"
+                                alt="Nike Dunk Low Retro"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy">
+                        </a>
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Dunk Low Retro Men's Basketball Shoes - White
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 774.500</span>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Dunk Low Retro Men's Basketball Shoes - White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 774.500</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.550.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">50% OFF</span>
-                                </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.550.000</span>
+                                <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">50% OFF</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- Product Card 3 - Converse Chuck Taylor -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/converse-chuck-taylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">CONVERSE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Chuck Taylor All Star High Top - Black</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-gray-900">Rp. 899.000</span>
-                                </div>
+                <!-- Product Card 6 - Converse Chuck Taylor -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 6, name: 'Chuck Taylor All Star High Top - Black', brand: 'CONVERSE', price: 899000, image: '{{ asset('images/products/converse-chucktaylor.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <img src="{{ asset('images/products/converse-chucktaylor.webp') }}"
+                            alt="Converse Chuck Taylor All Star"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">CONVERSE</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Chuck Taylor All Star High Top - Black
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 899.000</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- Product Card 4 - Vans Old Skool -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/vans-old-skool.webp') }}" alt="Vans Old Skool" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                <!-- Product Card 7 - Vans Old Skool -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 7, name: 'Old Skool Classic - Black/White', brand: 'VANS', price: 980000, image: '{{ asset('images/products/vans-oldskool.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <img src="{{ asset('images/products/vans-oldskool.webp') }}"
+                            alt="Vans Old Skool Classic"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">VANS</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            Old Skool Classic - Black/White
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 980.000</span>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">VANS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Old Skool Classic - Black/White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 750.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.100.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">32% OFF</span>
-                                </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.100.000</span>
+                                <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">32% OFF</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- Product Card 5 - New Balance 530 -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/new-balance-530.webp') }}" alt="New Balance 530" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NEW BALANCE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">530 Unisex Lifestyle Shoes - White Silver</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-gray-900">Rp. 1.399.000</span>
-                                </div>
+                <!-- Product Card 8 - New Balance 1906 -->
+                <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
+                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 8, name: '1906 Unisex Lifestyle Shoes - White Silver', brand: 'NEW BALANCE', price: 2599000, image: '{{ asset('images/products/newbalance-1906.webp') }}' })"
+                            class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                            aria-label="Add to cart">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </button>
+                        <img src="{{ asset('images/products/newbalance-1906.webp') }}"
+                            alt="New Balance 1906"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NEW BALANCE</p>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                            1906 Unisex Lifestyle Shoes - White Silver
+                        </h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 2.599.000</span>
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- Product Card 6 - Puma Suede -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/puma-suede.webp') }}" alt="Puma Suede" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">PUMA</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Suede Classic XXI Shoes - Peacoat White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 950.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">27% OFF</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 7 - Asics Gel Kayano -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/asics-gel-kayano.webp') }}" alt="Asics Gel Kayano" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">ASICS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">GEL-KAYANO 14 Running Shoes - Cream</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-gray-900">Rp. 2.199.000</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 8 - Reebok Club C -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                    </svg>
-                                </button>
-                                <img src="{{ asset('images/products/reebok-club-c.webp') }}" alt="Reebok Club C" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                            </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">REEBOK</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Club C 85 Vintage Shoes - White Green</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 799.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">38% OFF</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+    </section>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </section>
 
     <!-- NEW: Brand Collaboration Section -->
@@ -906,21 +953,23 @@
         </div>
     </section>
 
-    <!-- News Arrival Products Section -->
-    <section class="pt-16 pb-6 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="flex items-center justify-between mb-8">
+    <!-- New Arrival Products Section -->
+    <section class="py-12 sm:py-16 md:py-20 bg-white" id="new-arrivals">
+        <div class="container mx-auto px-4 sm:px-6">
+            <!-- Section Header -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 md:mb-10 gap-4">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900">News Arrival</h2>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">MySneakers New Arrivals</h2>
+                    <p class="text-sm sm:text-base text-gray-600 mt-2">Fresh kicks just dropped</p>
                 </div>
                 <div class="flex gap-2">
-                    <button class="swiper-button-prev-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button class="swiper-button-prev-custom w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 active:scale-95 transition">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </button>
-                    <button class="swiper-button-next-custom w-10 h-10 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button class="swiper-button-next-custom w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-gray-300 rounded-full hover:bg-gray-100 active:scale-95 transition">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </button>
@@ -931,262 +980,334 @@
             <div class="swiper productsSwiper">
                 <div class="swiper-wrapper">
 
-                    <!-- Product Card 1 - Adidas Samba -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product Card 1 - Nike Air Force 1 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <!-- Product Image Container -->
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <!-- Add to Cart Button - Responsive -->
+                                <button @click="addToCart({ id: 1, name: 'Air Force 1 Men\'s Shoes - White', brand: 'NIKE', price: 1600000, image: '{{ asset('images/products/nike-airforce1-men.webp') }}' })"
+                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                                    aria-label="Add to cart">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/nike-airforce1-men.webp') }}" alt="Nike Air Force 1 Men's Shoes - White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/nike-airforce1-men.webp') }}"
+                                    alt="Nike Air Force 1 Men's Shoes - White"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Force 1 Men's Shoes - White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 1.600.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                            <!-- Product Info Container -->
+                            <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                                <!-- Brand -->
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
+                                <!-- Product Title with Fixed Height -->
+                                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    Air Force 1 Men's Shoes - White
+                                </h3>
+                                <!-- Price Container - Push to Bottom -->
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.600.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.800.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Product Card 2 - Adidas Samba -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+
+                    <!-- Product Card 2 - Adidas Samba White -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 2, name: 'Samba OG Shoes - Cloud White', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambawhite.webp') }}' })"
+                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                                    aria-label="Add to cart">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/adidas-sambawhite.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/adidas-sambawhite.webp') }}"
+                                    alt="Adidas Samba OG Shoes - Cloud White"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ADIDAS</p>
+                                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    Samba OG Shoes - Cloud White
+                                </h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.200.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.800.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Product Card 3 - Adidas Samba Black -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 3, name: 'Samba OG Shoes - Black', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambablack.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">ADIDAS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Samba OG Shoes - Cloud White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 1.200.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.800.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
+                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">ADIDAS</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Samba OG Shoes - Cloud White</h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.200.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.800.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product Card 4 - Nike Air Jordan 1 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 800.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.200.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">33% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
+                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">NIKE</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black</h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 800.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.200.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">33% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product 5 - Nike Dunk Low -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 5, name: 'Dunk Low Retro - White', brand: 'NIKE', price: 774500, image: '{{ asset('images/products/nike-pandalow.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300">
+                                <a href="{{ url('nike-dunklow') }}"><img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"></a>
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NIKE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Dunk Low Retro Men's Basketball Shoes - White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 774.500</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.550.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">50% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
+                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">NIKE</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Dunk Low Retro Men's Basketball Shoes - White</h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 774.500</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.550.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">50% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Card 3 - Converse Chuck Taylor -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Converse Chuck Taylor -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 6, name: 'Chuck Taylor All Star High Top - Black', brand: 'CONVERSE', price: 899000, image: '{{ asset('images/products/converse-chucktaylor.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/converse-chuck-taylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/converse-chucktaylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">CONVERSE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Chuck Taylor All Star High Top - Black</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-gray-900">Rp. 899.000</span>
+                            <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
+                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">CONVERSE</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Chuck Taylor All Star High Top - Black</h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 899.000</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Card 4 - Vans Old Skool -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Vans Old Skool Classic -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 7, name: 'Old Skool Classic - Black/White', brand: 'VANS', price: 980000, image: '{{ asset('images/products/vans-oldskool.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/vans-old-skool.webp') }}" alt="Vans Old Skool" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/vans-oldskool.webp') }}" alt="Vans Old Skool Classic" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">VANS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Old Skool Classic - Black/White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 750.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.100.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">32% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
+                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">VANS</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Old Skool Classic - Black/White</h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 980.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.100.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">32% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Card 5 - New Balance 530 -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product Card 8 - New Balance 1906 (UPDATED) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 8, name: '1906 Unisex Lifestyle Shoes - White Silver', brand: 'NEW BALANCE', price: 2599000, image: '{{ asset('images/products/newbalance-1906.webp') }}' })"
+                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                                    aria-label="Add to cart">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/new-balance-530.webp') }}" alt="New Balance 530" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/newbalance-1906.webp') }}"
+                                    alt="New Balance 1906"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">NEW BALANCE</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">530 Unisex Lifestyle Shoes - White Silver</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-gray-900">Rp. 1.399.000</span>
+                            <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NEW BALANCE</p>
+                                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    1906 Unisex Lifestyle Shoes - White Silver
+                                </h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 2.599.000</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Card 6 - Puma Suede -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product Card 9 - Compass Velocity Black (UPDATED) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 9, name: 'Compass Velocity Black', brand: 'COMPASS', price: 950000, image: '{{ asset('images/products/compass-velocity-black.webp') }}' })"
+                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                                    aria-label="Add to cart">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/puma-suede.webp') }}" alt="Puma Suede" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/compass-velocity-black.webp') }}"
+                                    alt="Compass Velocity Black"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">PUMA</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Suede Classic XXI Shoes - Peacoat White</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 950.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">27% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">COMPASS</p>
+                                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    Compass Velocity Black
+                                </h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 950.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 1.299.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">27% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Card 7 - Asics Gel Kayano -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product Card 10 - Asics Gel Kayano (UPDATED) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 10, name: 'GEL-KAYANO 14 Sneakers Shoes - White', brand: 'ASICS', price: 2399000, image: '{{ asset('images/products/asiscs-gelkayano.webp') }}' })"
+                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                                    aria-label="Add to cart">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/asics-gel-kayano.webp') }}" alt="Asics Gel Kayano" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/asiscs-gelkayano.webp') }}"
+                                    alt="Asics Gel Kayano 14"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">ASICS</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">GEL-KAYANO 14 Running Shoes - Cream</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-gray-900">Rp. 2.199.000</span>
+                            <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ASICS</p>
+                                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    GEL-KAYANO 14 Sneakers Shoes - White
+                                </h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 2.399.000</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Product Card 8 - Reebok Club C -->
-                    <div class="swiper-slide">
-                        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition group">
-                            <div class="relative bg-gray-50 p-6">
-                                <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm hover:bg-gray-100 transition z-10">
-                                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <!-- Product Card 11 - Compass Retrogade Low (UPDATED) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
+                            <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                                <button @click="addToCart({ id: 11, name: 'Compass Retrogade Low', brand: 'COMPASS', price: 500000, image: '{{ asset('images/products/compass-retrogadelow-bw.webp') }}' })"
+                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
+                                    aria-label="Add to cart">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/reebok-club-c.webp') }}" alt="Reebok Club C" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <img src="{{ asset('images/products/compass-retrogadelow-bw.webp') }}"
+                                    alt="Compass Retrogade Low"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy">
                             </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 font-semibold mb-1">REEBOK</p>
-                                <h3 class="font-semibold text-sm mb-2 text-gray-900 line-clamp-2">Club C 85 Vintage Shoes - White Green</h3>
-                                <div class="flex items-baseline gap-2 mb-1">
-                                    <span class="text-lg font-bold text-red-600">Rp. 799.000</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs text-gray-400 line-through">Rp. 1.299.000</span>
-                                    <span class="text-xs font-semibold text-red-600 bg-red-50 px-2 py-0.5 rounded">38% OFF</span>
+                            <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">COMPASS</p>
+                                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    Compass Retrogade Low
+                                </h3>
+                                <div class="mt-auto">
+                                    <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
+                                        <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 500.000</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="text-xs sm:text-sm text-gray-400 line-through">Rp. 538.000</span>
+                                        <span class="text-xs sm:text-sm font-semibold text-red-600 bg-red-50 px-2 py-0.5 sm:py-1 rounded-md">7% OFF</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1197,13 +1318,13 @@
     </section>
 
     <!-- Shop Our Top Brands Section -->
-    <section class="py-16">
+    <section class="py-16" id="brands">
         <div class="container mx-auto px-6">
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">Shop Our Top Brands</h2>
+            <div class="mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">Shop Our Top Brands</h2>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                 <!-- Nike -->
                 <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
                     <div class="aspect-square bg-linear-to-br from-green-800 to-green-900 relative">
@@ -1222,16 +1343,16 @@
                 </a>
 
                 <!-- Jordan -->
-                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <div class="aspect-square bg-linear-to-br from-red-600 to-red-800 relative">
+                <a href="#" class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-gradient-to-br from-red-600 to-red-800 relative">
                         <img src="{{asset('images/jordan.webp') }}"
                             alt="Jordan"
-                            class="w-full h-full transition-transform duration-300">
+                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-2.5 sm:p-4">
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-lg text-gray-900">Jordan</span>
-                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <span class="font-bold text-sm sm:text-base md:text-lg text-gray-900">Jordan</span>
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
                         </div>
@@ -1239,16 +1360,16 @@
                 </a>
 
                 <!-- New Balance -->
-                <a href="#" class="group relative overflow-hidden  shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <div class="aspect-square bg-linear-to-br from-teal-700 to-teal-900 relative">
+                <a href="#" class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="aspect-square bg-gradient-to-br from-teal-700 to-teal-900 relative">
                         <img src="{{asset('images/newbalance.webp') }}"
                             alt="New Balance"
-                            class="w-full h-full transition-transform duration-300">
+                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 bg-white p-4">
+                    <div class="absolute bottom-0 left-0 right-0 bg-white p-2.5 sm:p-4">
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-lg text-gray-900">New Balance</span>
-                            <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <span class="font-bold text-sm sm:text-base md:text-lg text-gray-900">New Balance</span>
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
                         </div>
@@ -1573,6 +1694,27 @@
             lastScrollY = window.scrollY;
         });
     </script>
+
+    <!--Fungsionalitas Keranjang -->
+    <script src="{{ asset('js/cart.js') }}"></script>
+
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out;
+        }
+    </style>
     <script src="{{ asset('resources/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 
