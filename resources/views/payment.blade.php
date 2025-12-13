@@ -153,7 +153,7 @@
             </div>
 
             <!-- Right Column: Payment Method & Summary -->
-            <div class="lg:col-span-1 space-y-6">
+            <div class="lg:col-span-1 space-y-6 bg-white p-6 rounded-lg shadow">
                 
                 <!-- Customer Information Form -->
                 <form id="customerForm" method="POST" action="{{ route('checkout.process') }}">
@@ -228,6 +228,56 @@
                         @enderror
                     </div>
 
+                    <!-- Promo Code -->
+                    <div class="mt-6 p-4 bg-linear-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-300">
+                        <button class="flex items-center justify-between w-full" onclick="togglePromo()">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+                                </svg>
+                                <span class="font-semibold text-gray-900 text-sm">Pakai promo biar makin hemat!</span>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Price Summary -->
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <h3 class="font-bold text-gray-900 mb-4">Cek ringkasan transaksimu, yuk</h3>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Total Harga (1 Barang)</span>
+                                <span class="font-semibold text-gray-900">Rp 538.000</span>
+                            </div>
+                            
+                            <!-- Shipping Cost - Conditional -->
+                            <div id="shippingItem" class="flex items-center justify-between">
+                                <span class="text-gray-600" id="shippingLabel">Ongkos Kirim</span>
+                                <span class="font-semibold text-gray-900" id="shippingPrice">Rp 0</span>
+                            </div>
+                            
+                            <!-- Proteksi Produk - Conditional -->
+                            <div id="protectionItem" class="flex items-center justify-between">
+                                <span class="text-gray-600">Proteksi Produk</span>
+                                <span class="font-semibold text-gray-900">Rp 16.500</span>
+                            </div>
+
+                            <!-- Asuransi Pengiriman - Conditional -->
+                            <div id="insuranceItem" class="flex items-center justify-between">
+                                <span class="text-gray-600">Asuransi Pengiriman</span>
+                                <span class="font-semibold text-gray-900">Rp 3.500</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-3 border-t border-gray-200">
+                                <span class="font-bold text-gray-900">Total Tagihan</span>
+                                <span class="font-bold text-blue-950 text-lg" id="totalPrice">Rp 538.000</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Checkout Button (Submit Form) -->
                     <button 
                         type="submit" 
@@ -238,69 +288,6 @@
                         Bayar Sekarang
                     </button>
                 </form>
-
-                <!-- Promo Code -->
-                <div class="mt-6 p-4 bg-linear-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-300">
-                    <button class="flex items-center justify-between w-full" onclick="togglePromo()">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-                            </svg>
-                            <span class="font-semibold text-gray-900 text-sm">Pakai promo biar makin hemat!</span>
-                        </div>
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Price Summary -->
-                <div class="mt-6 pt-6 border-t border-gray-200">
-                    <h3 class="font-bold text-gray-900 mb-4">Cek ringkasan transaksimu, yuk</h3>
-                    
-                    <div class="space-y-3 text-sm">
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-600">Total Harga (1 Barang)</span>
-                            <span class="font-semibold text-gray-900">Rp 538.000</span>
-                        </div>
-                        
-                        <!-- Shipping Cost - Conditional -->
-                        <div id="shippingItem" class="hidden flex items-center justify-between">
-                            <span class="text-gray-600" id="shippingLabel">Ongkos Kirim</span>
-                            <span class="font-semibold text-gray-900" id="shippingPrice">Rp 0</span>
-                        </div>
-                        
-                        <!-- Proteksi Produk - Conditional -->
-                        <div id="protectionItem" class="flex items-center justify-between">
-                            <span class="text-gray-600">Proteksi Produk</span>
-                            <span class="font-semibold text-gray-900">Rp 16.500</span>
-                        </div>
-
-                        <!-- Asuransi Pengiriman - Conditional -->
-                        <div id="insuranceItem" class="hidden flex items-center justify-between">
-                            <span class="text-gray-600">Asuransi Pengiriman</span>
-                            <span class="font-semibold text-gray-900">Rp 3.500</span>
-                        </div>
-
-                        <div class="flex items-center justify-between pt-3 border-t border-gray-200">
-                            <span class="font-bold text-gray-900">Total Tagihan</span>
-                            <span class="font-bold text-blue-950 text-lg" id="totalPrice">Rp 538.000</span>
-                        </div>
-                    </div>
-
-                    <!-- Checkout Button -->
-                    <button type="button" onclick="validateAndCheckout()" class="w-full mt-6 py-4 bg-blue-950 text-white font-bold rounded-lg hover:bg-blue-900 transition-all shadow-lg flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Bayar Sekarang
-                    </button>
-
-                    <p class="text-xs text-center text-gray-500 mt-4">
-                        Dengan melanjutkan pembayaran, kamu menyetujui 
-                        <a href="#" class="text-blue-950 hover:underline">S&K Pembayaran Midtrans</a>
-                    </p>
-                </div>
             </div>
         </div>
     </div>
