@@ -147,12 +147,16 @@
                     <!-- Right Icons -->
                     <div class="flex items-center gap-4">
                         <!-- Profile Button -->
-                        <button class="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition font-medium">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            <span>Sign In</span>
-                        </button>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="flex items-center gap-2 px-5 py-2.5 bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition font-medium">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a4 4 0 01-4 4H6a4 4 0 01-4-4V7a4 4 0 014-4h3a4 4 0 014 4v1" />
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </form>
 
                         <!-- Cart Button -->
                         <button class="relative text-gray-700 hover:text-blue-950 transition" command="show-modal" commandfor="drawer">
@@ -758,26 +762,29 @@
 
                 <!-- Product Card 5 - Nike Dunk Low -->
                 <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
-                    <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                        <button @click="addToCart({ id: 5, name: 'Dunk Low Retro - White', brand: 'NIKE', price: 774500, image: '{{ asset('images/products/nike-pandalow.webp') }}' })"
+                    <a href="{{ route('products.show', 'MS5') }}">
+                        <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })"
                             class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
                             aria-label="Add to cart">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
-                        </button>
-                        <a href="{{ url('nike-dunklow') }}">
-                            <img src="{{ asset('images/products/nike-pandalow.webp') }}"
-                                alt="Nike Dunk Low Retro"
+                        </button>   
+                        <img src="{{ asset('images/products/nike-pandalow.webp') }}"
+                                alt="Nike Dunk Low"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 loading="lazy">
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
-                        <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
-                            Dunk Low Retro Men's Basketball Shoes - White
-                        </h3>
+                        <a href="{{ route('products.show', 'MS5') }}">
+                            <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                Dunk Low Retro White Black Panda
+                            </h3>
+                        </a>
+                        <!-- Price Container -->
                         <div class="mt-auto">
                             <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
                                 <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 774.500</span>
@@ -869,7 +876,7 @@
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NEW BALANCE</p>
                         <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
                             1906 Unisex Lifestyle Shoes - White Silver
-                        </h3>
+                            </h3>
                         <div class="mt-auto">
                             <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
                                 <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 2.599.000</span>
@@ -933,7 +940,7 @@
                 <div class="bg-white rounded-xl p-8 text-center shadow-md hover:shadow-lg transition-all">
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                         </svg>
                     </div>
                     <h4 class="font-bold text-xl text-blue-950 mb-2">Quality Assured</h4>
@@ -985,7 +992,7 @@
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <!-- Product Image Container -->
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <!-- Add to Cart Button - Responsive -->
+                                <!-- Add to Cart Button - Touch Optimized -->
                                 <button @click="addToCart({ id: 1, name: 'Air Force 1 Men\'s Shoes - White', brand: 'NIKE', price: 1600000, image: '{{ asset('images/products/nike-airforce1-men.webp') }}' })"
                                     class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
                                     aria-label="Add to cart">
@@ -993,6 +1000,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
+                                <!-- Product Image -->
                                 <img src="{{ asset('images/products/nike-airforce1-men.webp') }}"
                                     alt="Nike Air Force 1 Men's Shoes - White"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -1002,11 +1010,11 @@
                             <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                                 <!-- Brand -->
                                 <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
-                                <!-- Product Title with Fixed Height -->
+                                <!-- Product Title -->
                                 <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
                                     Air Force 1 Men's Shoes - White
                                 </h3>
-                                <!-- Price Container - Push to Bottom -->
+                                <!-- Price Container -->
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
                                         <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.600.000</span>
@@ -1058,16 +1066,19 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 3, name: 'Samba OG Shoes - Black', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambablack.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                <button @click="addToCart({ id: 3, name: 'Samba OG Shoes - Black', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambablack.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10"
+                                    aria-label="Add to cart">
                                     <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <img src="{{ asset('images/products/adidas-sambablack.webp') }}" alt="Adidas Samba OG Shoes - Black" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
-                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">ADIDAS</p>
-                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Samba OG Shoes - Cloud White</h3>
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ADIDAS</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    Samba OG Shoes - Black
+                                </h3>
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
                                         <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 1.200.000</span>
@@ -1085,16 +1096,19 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
+                                <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10"
+                                    aria-label="Add to cart">
                                     <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                 </button>
-                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <img src="{{ asset('images/products/nike-airjordan1.webp') }}" alt="Nike Air Jordan 1 Retro Mid" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
-                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">NIKE</p>
-                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black</h3>
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
+                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
+                                    Air Jordan 1 Retro Mid Men's Basketball Shoes OG - Black
+                                </h3>
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
                                         <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 800.000</span>
@@ -1120,8 +1134,12 @@
                                 <a href="{{ url('nike-dunklow') }}"><img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"></a>
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
-                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">NIKE</p>
-                                <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Dunk Low Retro Men's Basketball Shoes - White</h3>
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1 sm:mb-2">NIKE</p>
+                                <a href="{{ url('nike-dunklow') }}">
+                                    <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">
+                                        Dunk Low Retro White Black Panda
+                                    </h3>
+                                </a>
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
                                         <span class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Rp. 774.500</span>
@@ -1147,7 +1165,7 @@
                                 <img src="{{ asset('images/products/converse-chucktaylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
-                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">CONVERSE</p>
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1 sm:mb-2">CONVERSE</p>
                                 <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Chuck Taylor All Star High Top - Black</h3>
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
@@ -1170,7 +1188,7 @@
                                 <img src="{{ asset('images/products/vans-oldskool.webp') }}" alt="Vans Old Skool Classic" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
-                                <p class="text-xs sm:text-sm text-gray-500 font-semibold mb-1 sm:mb-2">VANS</p>
+                                <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1 sm:mb-2">VANS</p>
                                 <h3 class="font-semibold text-sm sm:text-base md:text-lg mb-2 sm:mb-3 text-gray-900 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">Old Skool Classic - Black/White</h3>
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1 sm:mb-2">
@@ -1185,7 +1203,7 @@
                         </div>
                     </div>
 
-                    <!-- Product Card 8 - New Balance 1906 (UPDATED) -->
+                    <!-- Product Card 8 - New Balance 1906 -->
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
@@ -1205,7 +1223,7 @@
                                 <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NEW BALANCE</p>
                                 <h3 class="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2 sm:mb-3 line-clamp-2 leading-snug min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem]">
                                     1906 Unisex Lifestyle Shoes - White Silver
-                                </h3>
+                                    </h3>
                                 <div class="mt-auto">
                                     <div class="flex items-baseline gap-2 mb-1.5 sm:mb-2">
                                         <span class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Rp. 2.599.000</span>
@@ -1594,7 +1612,7 @@
                         </a>
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.261 2.913-.558.788-.306 1.459-.717 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.261-2.148-.558-2.913-.306-.789-.717-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
                             </svg>
                         </a>
                     </div>

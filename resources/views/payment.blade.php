@@ -156,146 +156,150 @@
             <div class="lg:col-span-1 space-y-6">
                 
                 <!-- Customer Information Form -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
-                    <div class="flex items-center gap-2 mb-4">
-                        <svg class="w-5 h-5 text-blue-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                <form id="customerForm" method="POST" action="{{ route('checkout.process') }}">
+                    @csrf
+                    
+                    <!-- Hidden Inputs untuk Shipping & Cart Data -->
+                    <input type="hidden" name="shipping_courier" id="hiddenShippingCourier">
+                    <input type="hidden" name="shipping_service" id="hiddenShippingService">
+                    <input type="hidden" name="shipping_cost" id="hiddenShippingCost">
+                    <input type="hidden" name="total" id="hiddenTotal">
+                    <input type="hidden" name="cart_items" id="hiddenCartItems">
+                    
+                    <!-- Nama Lengkap -->
+                    <div>
+                        <label for="customerName" class="block text-sm font-semibold text-gray-900 mb-2">
+                            Nama Lengkap <span class="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="customerName" 
+                            name="customerName"
+                            placeholder="Masukkan nama lengkap"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
+                            required
+                            value="{{ old('customerName') }}"
+                        >
+                        @error('customerName')
+                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="customerEmail" class="block text-sm font-semibold text-gray-900 mb-2">
+                            Email <span class="text-red-600">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="customerEmail" 
+                            name="customerEmail"
+                            placeholder="contoh@email.com"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
+                            required
+                            value="{{ old('customerEmail') }}"
+                        >
+                        @error('customerEmail')
+                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div>
+                        <label for="customerPhone" class="block text-sm font-semibold text-gray-900 mb-2">
+                            Nomor Telepon <span class="text-red-600">*</span>
+                        </label>
+                        <div class="flex gap-2">
+                            <div class="flex items-center px-3 py-3 bg-gray-100 border border-gray-300 rounded-lg">
+                                <span class="text-gray-700 font-semibold">+62</span>
+                            </div>
+                            <input 
+                                type="tel" 
+                                id="customerPhone" 
+                                name="customerPhone"
+                                placeholder="8123456789"
+                                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
+                                required
+                                value="{{ old('customerPhone') }}"
+                            >
+                        </div>
+                        @error('customerPhone')
+                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Checkout Button (Submit Form) -->
+                    <button 
+                        type="submit" 
+                        class="w-full mt-6 py-4 bg-blue-950 text-white font-bold rounded-lg hover:bg-blue-900 transition-all shadow-lg flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        <h2 class="text-lg font-bold text-gray-900">Informasi Pembeli</h2>
-                    </div>
+                        Bayar Sekarang
+                    </button>
+                </form>
 
-                    <form id="customerForm" class="space-y-4">
-                        <!-- Nama Lengkap -->
-                        <div>
-                            <label for="customerName" class="block text-sm font-semibold text-gray-900 mb-2">
-                                Nama Lengkap <span class="text-red-600">*</span>
-                            </label>
-                            <input 
-                                type="text" 
-                                id="customerName" 
-                                name="customerName"
-                                placeholder="Masukkan nama lengkap"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
-                                required
-                            >
-                            <p class="text-xs text-red-600 mt-1 hidden" id="nameError">Nama lengkap harus diisi</p>
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label for="customerEmail" class="block text-sm font-semibold text-gray-900 mb-2">
-                                Email <span class="text-red-600">*</span>
-                            </label>
-                            <input 
-                                type="email" 
-                                id="customerEmail" 
-                                name="customerEmail"
-                                placeholder="contoh@email.com"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
-                                required
-                            >
-                            <p class="text-xs text-red-600 mt-1 hidden" id="emailError">Email tidak valid</p>
-                        </div>
-
-                        <!-- Nomor Telepon -->
-                        <div>
-                            <label for="customerPhone" class="block text-sm font-semibold text-gray-900 mb-2">
-                                Nomor Telepon <span class="text-red-600">*</span>
-                            </label>
-                            <div class="flex gap-2">
-                                <div class="flex items-center px-3 py-3 bg-gray-100 border border-gray-300 rounded-lg">
-                                    <span class="text-gray-700 font-semibold text-sm">+62</span>
-                                </div>
-                                <input 
-                                    type="tel" 
-                                    id="customerPhone" 
-                                    name="customerPhone"
-                                    placeholder="8123456789"
-                                    maxlength="13"
-                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
-                                    required
-                                >
-                            </div>
-                            <p class="text-xs text-red-600 mt-1 hidden" id="phoneError">Nomor telepon tidak valid (min. 10 digit)</p>
-                            <p class="text-xs text-gray-500 mt-1">Contoh: 8123456789</p>
-                        </div>
-
-                        <!-- Payment Method Info -->
-                        <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                            <div class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-blue-950 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                                </svg>
-                                <div>
-                                    <p class="font-semibold text-gray-900 text-sm mb-1">Metode Pembayaran: Midtrans</p>
-                                    <p class="text-xs text-gray-600">Berbagai pilihan pembayaran akan tersedia setelah checkout (Virtual Account, E-Wallet, Kartu Kredit)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Promo Code -->
-                    <div class="mt-6 p-4 bg-linear-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-300">
-                        <button class="flex items-center justify-between w-full" onclick="togglePromo()">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-                                </svg>
-                                <span class="font-semibold text-gray-900 text-sm">Pakai promo biar makin hemat!</span>
-                            </div>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                <!-- Promo Code -->
+                <div class="mt-6 p-4 bg-linear-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-300">
+                    <button class="flex items-center justify-between w-full" onclick="togglePromo()">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
                             </svg>
-                        </button>
-                    </div>
+                            <span class="font-semibold text-gray-900 text-sm">Pakai promo biar makin hemat!</span>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
 
-                    <!-- Price Summary -->
-                    <div class="mt-6 pt-6 border-t border-gray-200">
-                        <h3 class="font-bold text-gray-900 mb-4">Cek ringkasan transaksimu, yuk</h3>
+                <!-- Price Summary -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <h3 class="font-bold text-gray-900 mb-4">Cek ringkasan transaksimu, yuk</h3>
+                    
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Total Harga (1 Barang)</span>
+                            <span class="font-semibold text-gray-900">Rp 538.000</span>
+                        </div>
                         
-                        <div class="space-y-3 text-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Total Harga (1 Barang)</span>
-                                <span class="font-semibold text-gray-900">Rp 538.000</span>
-                            </div>
-                            
-                            <!-- Shipping Cost - Conditional -->
-                            <div id="shippingItem" class="hidden flex items-center justify-between">
-                                <span class="text-gray-600" id="shippingLabel">Ongkos Kirim</span>
-                                <span class="font-semibold text-gray-900" id="shippingPrice">Rp 0</span>
-                            </div>
-                            
-                            <!-- Proteksi Produk - Conditional -->
-                            <div id="protectionItem" class="flex items-center justify-between">
-                                <span class="text-gray-600">Proteksi Produk</span>
-                                <span class="font-semibold text-gray-900">Rp 16.500</span>
-                            </div>
-
-                            <!-- Asuransi Pengiriman - Conditional -->
-                            <div id="insuranceItem" class="hidden flex items-center justify-between">
-                                <span class="text-gray-600">Asuransi Pengiriman</span>
-                                <span class="font-semibold text-gray-900">Rp 3.500</span>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-3 border-t border-gray-200">
-                                <span class="font-bold text-gray-900">Total Tagihan</span>
-                                <span class="font-bold text-blue-950 text-lg" id="totalPrice">Rp 538.000</span>
-                            </div>
+                        <!-- Shipping Cost - Conditional -->
+                        <div id="shippingItem" class="hidden flex items-center justify-between">
+                            <span class="text-gray-600" id="shippingLabel">Ongkos Kirim</span>
+                            <span class="font-semibold text-gray-900" id="shippingPrice">Rp 0</span>
+                        </div>
+                        
+                        <!-- Proteksi Produk - Conditional -->
+                        <div id="protectionItem" class="flex items-center justify-between">
+                            <span class="text-gray-600">Proteksi Produk</span>
+                            <span class="font-semibold text-gray-900">Rp 16.500</span>
                         </div>
 
-                        <!-- Checkout Button -->
-                        <button type="button" onclick="validateAndCheckout()" class="w-full mt-6 py-4 bg-blue-950 text-white font-bold rounded-lg hover:bg-blue-900 transition-all shadow-lg flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Bayar Sekarang
-                        </button>
+                        <!-- Asuransi Pengiriman - Conditional -->
+                        <div id="insuranceItem" class="hidden flex items-center justify-between">
+                            <span class="text-gray-600">Asuransi Pengiriman</span>
+                            <span class="font-semibold text-gray-900">Rp 3.500</span>
+                        </div>
 
-                        <p class="text-xs text-center text-gray-500 mt-4">
-                            Dengan melanjutkan pembayaran, kamu menyetujui 
-                            <a href="#" class="text-blue-950 hover:underline">S&K Pembayaran Midtrans</a>
-                        </p>
+                        <div class="flex items-center justify-between pt-3 border-t border-gray-200">
+                            <span class="font-bold text-gray-900">Total Tagihan</span>
+                            <span class="font-bold text-blue-950 text-lg" id="totalPrice">Rp 538.000</span>
+                        </div>
                     </div>
+
+                    <!-- Checkout Button -->
+                    <button type="button" onclick="validateAndCheckout()" class="w-full mt-6 py-4 bg-blue-950 text-white font-bold rounded-lg hover:bg-blue-900 transition-all shadow-lg flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Bayar Sekarang
+                    </button>
+
+                    <p class="text-xs text-center text-gray-500 mt-4">
+                        Dengan melanjutkan pembayaran, kamu menyetujui 
+                        <a href="#" class="text-blue-950 hover:underline">S&K Pembayaran Midtrans</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -659,7 +663,7 @@
             alert('Fitur promo akan segera hadir!');
         }
 
-        // Update payment method UI
+        // Update payment method UI+
         document.querySelectorAll('input[name="payment"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 document.querySelectorAll('label:has(input[name="payment"])').forEach(label => {
@@ -672,6 +676,30 @@
             });
         });
 
+        // Populate hidden inputs sebelum submit
+        document.getElementById('customerForm').addEventListener('submit', function(e) {
+            // Get selected shipping
+            const selectedShipping = document.querySelector('input[name="shipping"]:checked');
+            
+            if (!selectedShipping) {
+                e.preventDefault();
+                alert('Mohon pilih jasa pengiriman terlebih dahulu.');
+                return false;
+            }
+            
+            // Populate shipping data
+            document.getElementById('hiddenShippingCourier').value = selectedShipping.value;
+            document.getElementById('hiddenShippingService').value = selectedShipping.getAttribute('data-name');
+            document.getElementById('hiddenShippingCost').value = selectedShipping.getAttribute('data-price');
+            
+            // Populate total
+            document.getElementById('hiddenTotal').value = calculateGrandTotal();
+            
+            // Populate cart items from localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            document.getElementById('hiddenCartItems').value = JSON.stringify(cartItems);
+        });
+        
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateSummary();
