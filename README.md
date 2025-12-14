@@ -71,3 +71,20 @@ php artisan migrate
 php artisan serve
 ```
 Aplikasi sekarang dapat diakses di http://localhost:8000.
+
+
+<p align="center">
+        <h1>Tampilan Home</h1>    
+    <img src="public/images/ss/home1.png" width="auto">
+    <img src="public/images/ss/home2.png" width="auto">
+    <img src="public/images/ss/home3.png" width="auto">
+    <img src="public/images/ss/home4.png" width="auto">
+        <h1>Tampilan Detail Produk</h1>    
+    <img src="public/images/ss/detail-product.png" width="auto">
+        <h1>Tampilan Register</h1>    
+    <img src="public/images/ss/register.png" width="auto">
+        <h1>Tampilan Login</h1>    
+    <img src="public/images/ss/login.png" width="auto">
+        <h1>Tampilan Log Transaksi</h1>    
+    <img src="public/images/ss/transaction-log.png" width="auto">
+</p>
