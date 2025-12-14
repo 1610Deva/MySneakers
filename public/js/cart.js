@@ -24,7 +24,7 @@ function shoppingCart() {
             }
             
             this.saveToLocalStorage();
-            this.showNotification('Product added to cart!');
+            this.showNotification('Product added to your Wishlist!');
         },
         
         removeFromCart(id) {
@@ -43,7 +43,7 @@ function shoppingCart() {
         showNotification(message) {
             // Simple notification - you can enhance this
             const notification = document.createElement('div');
-            notification.className = 'fixed top-20 right-26 bg-blue-950 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+            notification.className = 'fixed top-20 right-26 bg-blue-950 text-white px-6 py-3 rounded-md shadow-lg z-50 animate-fade-in';
             notification.textContent = message;
             document.body.appendChild(notification);
             

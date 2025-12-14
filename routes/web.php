@@ -34,6 +34,8 @@ Route::post('/register', function (Request $request) {
     ]);
 
     return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+});
+
 Route::get('menskatalog', function () {
     return view('menskatalog');
 });
@@ -51,16 +53,9 @@ Route::post('/checkout/process', [Checkout::class, 'store'])->name('checkout.pro
 
 // ✅ Protected Routes (harus login)
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
-
+    Route::get('/home', [ProductsController::class, 'home'])->name('home'); // was: return view('home')
+    Route::get('/checkout', [Checkout::class, 'index'])->name('checkout');  // was: return view('payment')
     Route::post('/payment/complete/{order_id}', [Checkout::class, 'markPaid'])->name('payment.complete');
-
-    Route::get('/checkout', function () {
-        return view('payment');
-    })->name('checkout');
-
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 });
 
@@ -70,11 +65,14 @@ Route::get('/', function () {
 });
 
 Route::get('/product/{product_id}', [ProductsController::class, 'show'])->name('products.show');
+
 Route::get('/payment/success/{order_id}', [Checkout::class, 'showPayment'])->name('payment.success');
 
 // ✅ CSRF Token Route (optional)
 Route::get('/token', function (Request $request) {
     return $request->session()->token();
+});
+
 Route::get('nike-air-force1', function () {
     return view('nike-air-force1');
 });

@@ -27,7 +27,7 @@
     </div>
 
     <!-- Main Navbar -->
-    <nav class="bg-white shadow-md top-0 sticky z-50">
+    @include('layouts.navbar')
         <!-- Logo & Search Section -->
         <div class=" border-b border-gray-200">
             <div class="container mx-auto px-6 py-4">
@@ -414,13 +414,21 @@
                     ADD TO CART +
                 </button>
 
-                <!-- Wishlist Button -->
-                <a class="w-full border-2 border-gray-300 text-gray-900 py-4 rounded-lg font-bold text-lg hover:border-blue-950 hover:bg-slate-50 transition-all flex items-center justify-center gap-2" href="{{ url('/checkout') }}">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                    </svg>
-                    Checkout Now !
-                </a>
+                <form action="{{ route('checkout.process') }}" method="POST" class="mt-4">
+                    @csrf
+                    <!-- Data produk dari DB -->
+                    <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                    <input type="hidden" name="product_name" value="{{ $product->nama_produk }}">
+                    <input type="hidden" name="product_brand" value="{{ $product->merk_produk }}">
+                    <input type="hidden" name="product_price" value="{{ (int)$product->harga }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="size" id="selectedSizeInput" value="">
+                    <input type="hidden" name="product_image" value="{{ asset('images/products/detail-product/nike-air-force1-front.png') }}">
+
+                    <button type="submit" class="w-full border-2 border-gray-300 text-gray-900 py-4 rounded-lg font-bold text-lg hover:border-blue-950 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                        Checkout Now !
+                    </button>
+                </form>
             </div>
         </div>
     </div>

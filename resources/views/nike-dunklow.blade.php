@@ -18,20 +18,23 @@
 
 </head>
 
-<body class="bg-slate-50" style="font-family: 'DM Sans', sans-serif;" x-data="shoppingCart()">
-
+<body class="bg-gray-50" style="font-family: 'DM Sans', sans-serif;" x-data="shoppingCart()">
     <style>
         * {
             scroll-behavior: smooth;
         }
-        
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
 
+        /* Hide scrollbar for IE, Edge and Firefox */
         .scrollbar-hide {
             -ms-overflow-style: none;
+            /* IE and Edge */
             scrollbar-width: none;
+            /* Firefox */
         }
 
         /* Smooth momentum scrolling for iOS */
@@ -101,8 +104,8 @@
             }
         }
     </style>
-    
-     <!-- Top Banner -->
+
+    <!-- Top Banner -->
     <div class="bg-blue-950 text-white py-2.5">
         <div class="container mx-auto px-6">
             <p class="text-sm font-medium text-center">
@@ -120,7 +123,7 @@
                 <div class="flex items-center justify-between gap-8">
                     <!-- Logo -->
                     <div class="flex items-center gap-2 shrink-0">
-                        <img src="{{ asset('images/logo-sm.jpg') }}" alt="MySneakers Logo" class="w-auto h-12" />
+                        <a href="{{ url('/home') }}"><img src="{{ asset('images/logo-sm.jpg') }}" alt="MySneakers Logo" class="w-auto h-12" /></a>
                     </div>
 
                     <!-- Search Bar -->
@@ -141,17 +144,21 @@
                     <!-- Right Icons -->
                     <div class="flex items-center gap-4">
                         <!-- Profile Button -->
-                        <button class="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition font-medium">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            <span>Sign In</span>
-                        </button>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="flex items-center gap-2 px-5 py-2.5 bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition font-medium">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a4 4 0 01-4 4H6a4 4 0 01-4-4V7a4 4 0 014-4h3a4 4 0 014 4v1" />
+                                </svg>
+                                <span>Logout</span>
+                            </button>
+                        </form>
 
                         <!-- Cart Button -->
-                        <button class="relative text-gray-700 hover:text-blue-950 transition" command="show-modal" commandfor="drawer">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        <button class="relative text-gray-700 hover:text-blue-950 transition" command="show-modal" commandfor="drawer" aria-label="Open wishlist">
+                            <svg class="size-7 sm:size-6 md:size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
                             <span x-show="totalItems > 0" x-text="totalItems" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"></span>
                         </button>
@@ -169,16 +176,16 @@
 
                         <!-- Men's Mega Menu -->
                         <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Men's</a>
+                            <a href="/menskatalog" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Men's</a>
                         </div>
 
                         <!-- Women's Mega Menu -->
                         <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Women's</a>
+                            <a href="/womenskatalog" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Women's</a>
                         </div>
 
                         <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Kid's</a>
+                            <a href="kidskatalog" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Kid's</a>
                         </div>
 
                         <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition shrink-0 text-sm md:text-base">Sale</a>
@@ -287,7 +294,7 @@
                     <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
                         <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                             <div class="flex items-start justify-between">
-                                <h2 id="drawer-title" class="text-lg font-medium text-gray-900">Shopping cart</h2>
+                                <h2 id="drawer-title" class="text-lg font-medium text-gray-900">Your Shoes Wishlist</h2>
                                 <div class="ml-3 flex h-7 items-center">
                                     <button type="button" command="close" commandfor="drawer" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
                                         <span class="absolute -inset-0.5"></span>
@@ -304,9 +311,9 @@
                                     <!-- Empty Cart Message -->
                                     <div x-show="items.length === 0" class="text-center py-12">
                                         <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                         </svg>
-                                        <h3 class="mt-4 text-lg font-medium text-gray-900">Your cart is empty</h3>
+                                        <h3 class="mt-4 text-lg font-medium text-gray-900">Your Wishlist is empty</h3>
                                         <p class="mt-1 text-sm text-gray-500">Start adding some sneakers!</p>
                                     </div>
 
@@ -343,7 +350,7 @@
                             </div>
                         </div>
 
-                        <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                        <!-- <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                             <div class="flex justify-between text-base font-medium text-gray-900">
                                 <p>Subtotal</p>
                                 <p x-text="formatRupiah(totalPrice)"></p>
@@ -361,7 +368,7 @@
                                     </button>
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </el-dialog-panel>
             </div>
@@ -472,22 +479,18 @@
                     ADD TO CART +
                 </button>
 
-                <!-- Checkout Button -->
-                <form action="{{ route('checkout.process') }}" method="POST" class="w-full">
+                <form action="{{ route('checkout.process') }}" method="POST" class="mt-4">
                     @csrf
-                    
-
-                    <!-- Kirim data produk -->
+                    <!-- Data produk dari DB -->
                     <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                     <input type="hidden" name="product_name" value="{{ $product->nama_produk }}">
                     <input type="hidden" name="product_brand" value="{{ $product->merk_produk }}">
                     <input type="hidden" name="product_price" value="{{ (int)$product->harga }}">
                     <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="size" id="selectedSizeInput" value="">
+                    <input type="hidden" name="product_image" value="{{ asset('images/products/detail-product/nike-air-force1-front.png') }}">
 
                     <button type="submit" class="w-full border-2 border-gray-300 text-gray-900 py-4 rounded-lg font-bold text-lg hover:border-blue-950 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                        </svg>
                         Checkout Now !
                     </button>
                 </form>
@@ -809,6 +812,7 @@
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
                         </a>
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - MySneakers</title>
     <link rel="shortcut icon" href="{{ asset('images/logo-sm1.jpg') }}" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +21,7 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center gap-4">
-                <a href="{{ url('/') }}">
+                <a href="{{ url('/home') }}">
                     <img src="{{ asset('images/logo-sm.jpg') }}" alt="MySneakers" class="h-10 w-auto">
                 </a>
                 <div class="h-8 w-px bg-gray-300"></div>
@@ -45,11 +46,12 @@
                     
                     <div class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-green-600 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                         <div>
-                            <p class="font-bold text-gray-900 mb-1">Rumah • <span class="font-normal">Om Yog</span></p>
-                            <p class="text-gray-600 text-sm">Jalan Om Yog, Medan Kota, Sumatera Utara</p>
+                            <p class="font-bold text-gray-900">Rumah • Om Yog</p>
+                            <p class="text-sm text-gray-600 mt-1">Jalan Om Yog, Medan Kota, Sumatera Utara</p>
                         </div>
                     </div>
                 </div>
@@ -57,233 +59,213 @@
                 <!-- Product List -->
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <div class="flex items-center gap-2 mb-4">
-                        <input type="checkbox" id="selectStore" checked disabled class="w-4 h-4 text-blue-950 border-gray-300 rounded focus:ring-blue-950">
-                        <label for="selectStore" class="font-bold text-gray-900">MySneakers Official Store</label>
+                        <svg class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                        </svg>
+                        <h2 class="text-lg font-bold text-gray-900">Produk yang Dibeli</h2>
                     </div>
 
+                    @php
+                        $product = session('checkout_product', [
+                            'product_id' => '',
+                            'product_name' => 'No Product Selected',
+                            'product_brand' => '',
+                            'product_price' => 0,
+                            'quantity' => 1,
+                            'size' => 'Not Selected',
+                            'image' => asset('images/default-product.png'),
+                        ]);
+                    @endphp
+
+                    @if($product && $product['product_price'] > 0)
                     <!-- Product Item -->
                     <div class="border-t border-gray-100 pt-4">
                         <div class="flex gap-4">
-                            <div class="shrink-0">
-                                <img src="{{ asset('images/products/compass-retrogadelow-bw.webp') }}" alt="Product" class="w-20 h-20 object-cover rounded-lg border border-gray-200">
+                            <!-- Product Image -->
+                            
+                            <!-- Product Details -->
+                            <div class="flex-1">
+                                <h3 class="font-bold text-gray-900 mb-1">{{ $product['product_name'] }}</h3>
+                                <p class="text-sm text-gray-600 mb-2">{{ $product['product_brand'] }}</p>
+                                
+                                <div class="flex items-center gap-4 text-sm text-gray-600">
+                                    <span>Qty: <span class="font-semibold">{{ $product['quantity'] }}</span></span>
+                                </div>
                             </div>
                             
-                            <div class="flex-1">
-                                <h3 class="font-semibold text-gray-900 mb-1">Sepatu Compass Retrograde Low Black White</h3>
-                                <p class="text-sm text-gray-500 mb-2">Size: 45</p>
-                                
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-4">
-                                        <span class="text-lg font-bold text-gray-900">Rp 538.000</span>
-                                    </div>
-                                </div>
-
-                                <!-- Product Protection -->
-                                <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
-                                    <div class="flex items-start gap-2">
-                                        <input type="checkbox" id="protectionCheck" checked class="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500" onchange="updateSummary()">
-                                        <label for="protectionCheck" class="flex-1">
-                                            <div class="flex items-center gap-2">
-                                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                                </svg>
-                                                <span class="font-semibold text-sm text-gray-900">Proteksi Rusak Total 6 bulan</span>
-                                                <span class="text-sm text-gray-600">(Rp 16.500)</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
+                            <!-- Price -->
+                            <div class="text-right">
+                                <p class="font-bold text-gray-900 text-lg">{{ formatRupiah($product['product_price'] * $product['quantity']) }}</p>
+                                @if($product['quantity'] > 1)
+                                <p class="text-sm text-gray-600">@ {{ formatRupiah($product['product_price']) }}</p>
+                                @endif
                             </div>
                         </div>
+                    </div>
+                    @else
+                    <!-- No Product -->
+                    <div class="border-t border-gray-100 pt-4 text-center py-8">
+                        <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                        <p class="text-gray-600 mb-2">Tidak ada produk yang dipilih.</p>
+                        <a href="{{ url('/home') }}" class="text-blue-950 font-semibold hover:underline mt-2 inline-block">Kembali ke Home</a>
+                    </div>
+                    @endif
+                </div>
 
-                        <!-- Shipping Options -->
-                        <div class="mt-6 pt-4 border-t border-gray-100">
-                            <button class="w-full p-4 border-2 border-gray-300 rounded-lg text-left hover:border-blue-950 transition" id="shippingDropdown" onclick="toggleShipping()">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex-1">
-                                        <div class="font-bold text-gray-900 mb-1">Reguler</div>
-                                        <div class="text-sm text-gray-600" id="selectedShipping">Pilih jasa pengiriman</div>
-                                        <div class="text-xs text-gray-500 mt-1" id="selectedEstimate"></div>
-                                    </div>
-                                    <svg class="w-5 h-5 text-gray-400 transition-transform" id="shippingIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
+                <!-- ✅ SHIPPING OPTIONS SECTION -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/>
+                        </svg>
+                        Pilih Kurir Pengiriman
+                    </h2>
+
+                    <div class="space-y-3">
+                        <!-- JNE Regular -->
+                        <label class="flex items-center justify-between p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-950 hover:bg-blue-50 transition">
+                            <div class="flex items-center gap-4">
+                                <input type="radio" name="shipping" value="JNE" data-name="JNE Regular" data-price="42000" data-estimate="3 - 5 Days" onchange="updateShipping(this)" class="w-5 h-5 text-blue-950">
+                                <div>
+                                    <p class="font-bold text-gray-900">JNE Regular</p>
+                                    <p class="text-sm text-gray-600">Estimated: 3 - 5 Days</p>
                                 </div>
-                            </button>
-
-                            <!-- Shipping Options Dropdown -->
-                            <div id="shippingOptions" class="mt-3 space-y-2">
-                                <label class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="checkbox" name="shipping" value="jnt" class="w-4 h-4 text-blue-950" data-name="Economic" data-price="42000" data-estimate="3 - 5 Days" onchange="updateShipping(this)">
-                                    <div class="flex-1">
-                                        <div class="font-semibold text-gray-900">Economic</div>
-                                        <div class="text-sm text-gray-600">Estimated Arrival 3 - 5 Days</div>
-                                    </div>
-                                    <div class="font-bold text-gray-900">Rp 42.000</div>
-                                </label>
-                                <label class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="checkbox" name="shipping" value="sicepat" class="w-4 h-4 text-blue-950" data-name="Reguler" data-price="38000" data-estimate="2 - 3 Days" onchange="updateShipping(this)">
-                                    <div class="flex-1">
-                                        <div class="font-semibold text-gray-900">Reguler</div>
-                                        <div class="text-sm text-gray-600">Estimated Arrival 2 - 3 Days</div>
-                                    </div>
-                                    <div class="font-bold text-gray-900">Rp 38.000</div>
-                                </label>
-                                <label class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
-                                    <input type="checkbox" name="shipping" value="jne" class="w-4 h-4 text-blue-950" data-name="Express" data-price="45000" data-estimate="1 - 2 Days" onchange="updateShipping(this)">
-                                    <div class="flex-1">
-                                        <div class="font-semibold text-gray-900">Express</div>
-                                        <div class="text-sm text-gray-600">Estimated Arrival 1 - 2 Days</div>
-                                    </div>
-                                    <div class="font-bold text-gray-900">Rp 45.000</div>
-                                </label>
                             </div>
+                            <p class="font-bold text-blue-950">Rp 42.000</p>
+                        </label>
 
-                            <!-- Shipping Insurance -->
-                            <div class="mt-4 flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                <label for="insuranceCheck" class="flex items-center gap-2 cursor-pointer flex-1">
-                                    <input type="checkbox" id="insuranceCheck" class="w-4 h-4 text-blue-950 border-gray-300 rounded focus:ring-blue-950" onchange="updateSummary()">
-                                    <span class="text-sm font-semibold text-gray-900">Pakai Asuransi Pengiriman</span>
-                                    <span class="text-sm text-gray-600">(Rp 3.500)</span>
-                                </label>
+                        <!-- TIKI ONS -->
+                        <label class="flex items-center justify-between p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-950 hover:bg-blue-50 transition">
+                            <div class="flex items-center gap-4">
+                                <input type="radio" name="shipping" value="TIKI" data-name="TIKI ONS" data-price="35000" data-estimate="4 - 6 Days" onchange="updateShipping(this)" class="w-5 h-5 text-blue-950">
+                                <div>
+                                    <p class="font-bold text-gray-900">TIKI ONS</p>
+                                    <p class="text-sm text-gray-600">Estimated: 4 - 6 Days</p>
+                                </div>
                             </div>
-                        </div>
+                            <p class="font-bold text-blue-950">Rp 35.000</p>
+                        </label>
+
+                        <!-- J&T Express -->
+                        <label class="flex items-center justify-between p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-950 hover:bg-blue-50 transition">
+                            <div class="flex items-center gap-4">
+                                <input type="radio" name="shipping" value="JNT" data-name="J&T Express" data-price="28000" data-estimate="2 - 4 Days" onchange="updateShipping(this)" class="w-5 h-5 text-blue-950">
+                                <div>
+                                    <p class="font-bold text-gray-900">J&T Express</p>
+                                    <p class="text-sm text-gray-600">Estimated: 2 - 4 Days</p>
+                                </div>
+                            </div>
+                            <p class="font-bold text-blue-950">Rp 28.000</p>
+                        </label>
+
+                        <!-- SiCepat BEST -->
+                        <label class="flex items-center justify-between p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-950 hover:bg-blue-50 transition">
+                            <div class="flex items-center gap-4">
+                                <input type="radio" name="shipping" value="SICEPAT" data-name="SiCepat BEST" data-price="30000" data-estimate="2 - 3 Days" onchange="updateShipping(this)" class="w-5 h-5 text-blue-950">
+                                <div>
+                                    <p class="font-bold text-gray-900">SiCepat BEST</p>
+                                    <p class="text-sm text-gray-600">Estimated: 2 - 3 Days</p>
+                                </div>
+                            </div>
+                            <p class="font-bold text-blue-950">Rp 30.000</p>
+                        </label>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Payment Method & Summary -->
-            <div class="lg:col-span-1 space-y-6 bg-white p-6 rounded-lg shadow">
+            <!-- Right Column: Payment Summary -->
+            <div class="lg:col-span-1 space-y-6 bg-white p-6 rounded-lg shadow h-fit sticky top-24">
                 
                 <!-- Customer Information Form -->
                 <form id="customerForm" method="POST" action="{{ route('checkout.process') }}">
                     @csrf
                     
-                    <!-- Hidden Inputs untuk Shipping & Cart Data -->
+                    <!-- Hidden Inputs -->
                     <input type="hidden" name="shipping_courier" id="hiddenShippingCourier">
                     <input type="hidden" name="shipping_service" id="hiddenShippingService">
                     <input type="hidden" name="shipping_cost" id="hiddenShippingCost">
                     <input type="hidden" name="total" id="hiddenTotal">
-                    <input type="hidden" name="cart_items" id="hiddenCartItems">
+                    <input type="hidden" name="cart_items" id="hiddenCartItems" value='[{"id":"{{ $product['product_id'] }}","name":"{{ $product['product_name'] }}","quantity":{{ $product['quantity'] }},"price":{{ $product['product_price'] }}}]'>
                     
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Detail Pembeli</h3>
+
                     <!-- Nama Lengkap -->
-                    <div>
-                        <label for="customerName" class="block text-sm font-semibold text-gray-900 mb-2">
-                            Nama Lengkap <span class="text-red-600">*</span>
-                        </label>
+                    <div class="mb-4">
+                        <label for="customerName" class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
                         <input 
                             type="text" 
                             id="customerName" 
-                            name="customerName"
+                            name="customerName" 
+                            value="{{ Auth::user()->name }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 transition"
                             placeholder="Masukkan nama lengkap"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
-                            required
-                            value="{{ old('customerName') }}"
-                        >
-                        @error('customerName')
-                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
+                            required>
+                        <p id="nameError" class="hidden text-red-500 text-xs mt-1"></p>
                     </div>
 
                     <!-- Email -->
-                    <div>
-                        <label for="customerEmail" class="block text-sm font-semibold text-gray-900 mb-2">
-                            Email <span class="text-red-600">*</span>
-                        </label>
+                    <div class="mb-4">
+                        <label for="customerEmail" class="block text-sm font-semibold text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
                         <input 
                             type="email" 
                             id="customerEmail" 
-                            name="customerEmail"
+                            name="customerEmail" 
+                            value="{{ Auth::user()->email }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 transition"
                             placeholder="contoh@email.com"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
-                            required
-                            value="{{ old('customerEmail') }}"
-                        >
-                        @error('customerEmail')
-                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
+                            required>
+                        <p id="emailError" class="hidden text-red-500 text-xs mt-1"></p>
                     </div>
 
                     <!-- Nomor Telepon -->
-                    <div>
-                        <label for="customerPhone" class="block text-sm font-semibold text-gray-900 mb-2">
-                            Nomor Telepon <span class="text-red-600">*</span>
-                        </label>
+                    <div class="mb-6">
+                        <label for="customerPhone" class="block text-sm font-semibold text-gray-700 mb-2">Nomor Telepon <span class="text-red-500">*</span></label>
                         <div class="flex gap-2">
-                            <div class="flex items-center px-3 py-3 bg-gray-100 border border-gray-300 rounded-lg">
-                                <span class="text-gray-700 font-semibold">+62</span>
-                            </div>
+                            <span class="px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 font-medium">+62</span>
                             <input 
                                 type="tel" 
                                 id="customerPhone" 
-                                name="customerPhone"
+                                name="customerPhone" 
+                                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-950 transition"
                                 placeholder="8123456789"
-                                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-950 focus:border-transparent transition"
-                                required
-                                value="{{ old('customerPhone') }}"
-                            >
+                                maxlength="13"
+                                required>
                         </div>
-                        @error('customerPhone')
-                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Promo Code -->
-                    <div class="mt-6 p-4 bg-linear-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-300">
-                        <button class="flex items-center justify-between w-full" onclick="togglePromo()">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-                                </svg>
-                                <span class="font-semibold text-gray-900 text-sm">Pakai promo biar makin hemat!</span>
-                            </div>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
+                        <p id="phoneError" class="hidden text-red-500 text-xs mt-1"></p>
                     </div>
 
                     <!-- Price Summary -->
-                    <div class="mt-6 pt-6 border-t border-gray-200">
-                        <h3 class="font-bold text-gray-900 mb-4">Cek ringkasan transaksimu, yuk</h3>
+                    <div class="pt-6 border-t border-gray-200">
+                        <h3 class="font-bold text-gray-900 mb-4">Ringkasan Pembayaran</h3>
                         
                         <div class="space-y-3 text-sm">
                             <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Total Harga (1 Barang)</span>
-                                <span class="font-semibold text-gray-900">Rp 538.000</span>
+                                <span class="text-gray-600">Total Harga ({{ $product['quantity'] ?? 1 }} Barang)</span>
+                                <span class="font-semibold text-gray-900" id="productPrice">{{ formatRupiah($product['product_price'] * ($product['quantity'] ?? 1)) }}</span>
                             </div>
                             
-                            <!-- Shipping Cost - Conditional -->
-                            <div id="shippingItem" class="flex items-center justify-between">
+                            <!-- Shipping Cost -->
+                            <div id="shippingItem" class="hidden flex items-center justify-between">
                                 <span class="text-gray-600" id="shippingLabel">Ongkos Kirim</span>
                                 <span class="font-semibold text-gray-900" id="shippingPrice">Rp 0</span>
-                            </div>
-                            
-                            <!-- Proteksi Produk - Conditional -->
-                            <div id="protectionItem" class="flex items-center justify-between">
-                                <span class="text-gray-600">Proteksi Produk</span>
-                                <span class="font-semibold text-gray-900">Rp 16.500</span>
-                            </div>
-
-                            <!-- Asuransi Pengiriman - Conditional -->
-                            <div id="insuranceItem" class="flex items-center justify-between">
-                                <span class="text-gray-600">Asuransi Pengiriman</span>
-                                <span class="font-semibold text-gray-900">Rp 3.500</span>
                             </div>
 
                             <div class="flex items-center justify-between pt-3 border-t border-gray-200">
                                 <span class="font-bold text-gray-900">Total Tagihan</span>
-                                <span class="font-bold text-blue-950 text-lg" id="totalPrice">Rp 538.000</span>
+                                <span class="font-bold text-blue-950 text-lg" id="totalPrice">{{ formatRupiah($product['product_price'] * ($product['quantity'] ?? 1)) }}</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Checkout Button (Submit Form) -->
+                    <!-- Submit Button -->
                     <button 
-                        type="submit" 
-                        class="w-full mt-6 py-4 bg-blue-950 text-white font-bold rounded-lg hover:bg-blue-900 transition-all shadow-lg flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        type="submit"
+                        class="w-full mt-6 px-6 py-4 bg-blue-950 text-white font-bold rounded-lg hover:bg-blue-900 transition-all transform hover:scale-105 shadow-lg">
+                        <svg class="w-5 h-5 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
                         Bayar Sekarang
                     </button>
@@ -293,406 +275,66 @@
     </div>
 
     <script>
-        // ========== FORM VALIDATION ==========
-        
-        // Validate customer form
-        function validateCustomerForm() {
-            let isValid = true;
-            
-            // Get form values
-            const name = document.getElementById('customerName').value.trim();
-            const email = document.getElementById('customerEmail').value.trim();
-            const phone = document.getElementById('customerPhone').value.trim();
-            
-            // Get error elements
-            const nameError = document.getElementById('nameError');
-            const emailError = document.getElementById('emailError');
-            const phoneError = document.getElementById('phoneError');
-            
-            // Reset errors
-            nameError.classList.add('hidden');
-            emailError.classList.add('hidden');
-            phoneError.classList.add('hidden');
-            
-            // Reset input borders
-            document.getElementById('customerName').classList.remove('border-red-500');
-            document.getElementById('customerEmail').classList.remove('border-red-500');
-            document.getElementById('customerPhone').classList.remove('border-red-500');
-            
-            // Validate name (min 3 characters)
-            if (name === '' || name.length < 3) {
-                nameError.textContent = name === '' ? 'Nama lengkap harus diisi' : 'Nama minimal 3 karakter';
-                nameError.classList.remove('hidden');
-                document.getElementById('customerName').classList.add('border-red-500');
-                isValid = false;
-            }
-            
-            // Validate email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email === '' || !emailRegex.test(email)) {
-                emailError.textContent = email === '' ? 'Email harus diisi' : 'Format email tidak valid';
-                emailError.classList.remove('hidden');
-                document.getElementById('customerEmail').classList.add('border-red-500');
-                isValid = false;
-            }
-            
-            // Validate phone (min 10 digits, max 13 digits, numbers only)
-            const phoneRegex = /^[0-9]{10,13}$/;
-            if (phone === '' || !phoneRegex.test(phone)) {
-                phoneError.textContent = phone === '' ? 'Nomor telepon harus diisi' : 'Nomor telepon tidak valid (10-13 digit)';
-                phoneError.classList.remove('hidden');
-                document.getElementById('customerPhone').classList.add('border-red-500');
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-        
-        // Real-time validation on input
-        document.getElementById('customerName').addEventListener('blur', function() {
-            const name = this.value.trim();
-            const nameError = document.getElementById('nameError');
-            
-            if (name === '' || name.length < 3) {
-                nameError.textContent = name === '' ? 'Nama lengkap harus diisi' : 'Nama minimal 3 karakter';
-                nameError.classList.remove('hidden');
-                this.classList.add('border-red-500');
-            } else {
-                nameError.classList.add('hidden');
-                this.classList.remove('border-red-500');
-                this.classList.add('border-green-500');
-            }
-        });
-        
-        document.getElementById('customerEmail').addEventListener('blur', function() {
-            const email = this.value.trim();
-            const emailError = document.getElementById('emailError');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (email === '' || !emailRegex.test(email)) {
-                emailError.textContent = email === '' ? 'Email harus diisi' : 'Format email tidak valid';
-                emailError.classList.remove('hidden');
-                this.classList.add('border-red-500');
-            } else {
-                emailError.classList.add('hidden');
-                this.classList.remove('border-red-500');
-                this.classList.add('border-green-500');
-            }
-        });
-        
-        document.getElementById('customerPhone').addEventListener('input', function() {
-            // Only allow numbers
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        
-        document.getElementById('customerPhone').addEventListener('blur', function() {
-            const phone = this.value.trim();
-            const phoneError = document.getElementById('phoneError');
-            const phoneRegex = /^[0-9]{10,13}$/;
-            
-            if (phone === '' || !phoneRegex.test(phone)) {
-                phoneError.textContent = phone === '' ? 'Nomor telepon harus diisi' : 'Nomor telepon tidak valid (10-13 digit)';
-                phoneError.classList.remove('hidden');
-                this.classList.add('border-red-500');
-            } else {
-                phoneError.classList.add('hidden');
-                this.classList.remove('border-red-500');
-                this.classList.add('border-green-500');
-            }
-        });
-        
-        // Validate and proceed to checkout
-        function validateAndCheckout() {
-            // Validate customer form first
-            if (!validateCustomerForm()) {
-                // Scroll to first error
-                const firstError = document.querySelector('.border-red-500');
-                if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstError.focus();
-                }
-                
-                // Show alert
-                alert('Mohon lengkapi semua data dengan benar sebelum melanjutkan pembayaran.');
-                return false;
-            }
-            
-            // Check if shipping is selected
-            const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-            if (!selectedShipping) {
-                alert('Mohon pilih jasa pengiriman terlebih dahulu.');
-                return false;
-            }
-            
-            // Get customer data
-            const customerData = {
-                name: document.getElementById('customerName').value.trim(),
-                email: document.getElementById('customerEmail').value.trim(),
-                phone: '+62' + document.getElementById('customerPhone').value.trim(),
-                shipping: {
-                    courier: selectedShipping.value,
-                    service: selectedShipping.getAttribute('data-name'),
-                    cost: parseInt(selectedShipping.getAttribute('data-price')),
-                    estimate: selectedShipping.getAttribute('data-estimate')
-                },
-                total: calculateGrandTotal()
-            };
-            
-            // Log customer data (untuk development)
-            console.log('Customer Data for Midtrans:', customerData);
-            
-            // Show success message and simulate payment
-            alert(`Data pembayaran berhasil!\n\nNama: ${customerData.name}\nEmail: ${customerData.email}\nTelepon: ${customerData.phone}\n\nTotal: ${formatRupiah(customerData.total)}\n\nAnda akan diarahkan ke halaman pembayaran Midtrans.`);
-            
-            // TODO: Integrate with Midtrans API
-            // Example: window.location.href = '/payment/midtrans';
-            
-            return true;
-        }
-        
-        // Calculate grand total including all options
-        function calculateGrandTotal() {
-            const protectionCheck = document.getElementById('protectionCheck');
-            const insuranceCheck = document.getElementById('insuranceCheck');
-            
-            let total = prices.product + prices.shipping;
-            
-            if (protectionCheck.checked) {
-                total += prices.protection;
-            }
-            
-            if (insuranceCheck.checked) {
-                total += prices.insurance;
-            }
-            
-            return total;
-        }
-        
-        // ========== ORIGINAL FUNCTIONS ==========
-        
-        // Toggle Shipping Options
-        function toggleShipping() {
-            const options = document.getElementById('shippingOptions');
-            const icon = document.getElementById('shippingIcon');
-            
-            if (options.classList.contains('hidden')) {
-                options.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                options.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // Toggle Note Field
-        function toggleNote() {
-            const noteField = document.getElementById('noteField');
-            noteField.classList.toggle('hidden');
-            if (!noteField.classList.contains('hidden')) {
-                noteField.focus();
-            }
-        }
-
-        // Update Note Character Count
-        function updateNoteCount() {
-            const noteField = document.getElementById('noteField');
-            const noteCount = document.getElementById('noteCount');
-            noteCount.textContent = `${noteField.value.length}/200`;
-        }
-
-        // Toggle Promo
-        function togglePromo() {
-            alert('Fitur promo akan segera hadir!');
-        }
-
-        // Update payment method UI
-        document.querySelectorAll('input[name="payment"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('label:has(input[name="payment"])').forEach(label => {
-                    label.classList.remove('border-blue-950', 'bg-blue-50');
-                    label.classList.add('border-gray-200');
-                });
-                
-                this.closest('label').classList.remove('border-gray-200');
-                this.closest('label').classList.add('border-blue-950', 'bg-blue-50');
-            });
-        });
-
         // Price Variables
         const prices = {
-            product: 538000,
-            shipping: 0,
-            protection: 16500,
-            insurance: 3500
+            product: {{ $product && isset($product['product_price']) ? (int)($product['product_price'] * $product['quantity']) : 0 }},
+            shipping: 0
         };
 
-        let selectedShippingName = '';
-
-        // Format number to Rupiah
+        // Format Rupiah
         function formatRupiah(number) {
             return 'Rp ' + number.toLocaleString('id-ID');
         }
 
-        // Update Shipping when checkbox changed
-        function updateShipping(checkbox) {
-            // Uncheck other shipping options (only one can be selected)
-            if (checkbox.checked) {
-                document.querySelectorAll('input[name="shipping"]').forEach(cb => {
-                    if (cb !== checkbox) cb.checked = false;
-                });
-            }
-
-            const selectedShipping = document.querySelector('input[name="shipping"]:checked');
-            const shippingItem = document.getElementById('shippingItem');
-            
-            if (selectedShipping) {
-                // Get shipping details
-                const shippingName = selectedShipping.getAttribute('data-name');
-                const shippingPrice = parseInt(selectedShipping.getAttribute('data-price'));
-                const shippingEstimate = selectedShipping.getAttribute('data-estimate');
-
-                // Update prices object
+        // Update Shipping
+        function updateShipping(radio) {
+            if (radio.checked) {
+                const shippingName = radio.getAttribute('data-name');
+                const shippingPrice = parseInt(radio.getAttribute('data-price'));
+                
                 prices.shipping = shippingPrice;
-                selectedShippingName = shippingName;
-
-                // Update dropdown display
-                document.getElementById('selectedShipping').textContent = `${shippingName} (${formatRupiah(shippingPrice)})`;
-                document.getElementById('selectedEstimate').textContent = `Estimated Arrival ${shippingEstimate}`;
-
+                
                 // Show shipping in summary
                 document.getElementById('shippingLabel').textContent = `Ongkos Kirim (${shippingName})`;
                 document.getElementById('shippingPrice').textContent = formatRupiah(shippingPrice);
-                shippingItem.classList.remove('hidden');
-            } else {
-                // No shipping selected
-                prices.shipping = 0;
-                selectedShippingName = '';
-
-                // Update dropdown display
-                document.getElementById('selectedShipping').textContent = 'Pilih jasa pengiriman';
-                document.getElementById('selectedEstimate').textContent = '';
-
-                // Hide shipping in summary
-                shippingItem.classList.add('hidden');
-            }
-
-            // Recalculate total
-            updateSummary();
-
-            // Close dropdown
-            toggleShipping();
-        }
-
-        // Update Summary based on checkboxes
-        function updateSummary() {
-            const protectionCheck = document.getElementById('protectionCheck');
-            const insuranceCheck = document.getElementById('insuranceCheck');
-            const protectionItem = document.getElementById('protectionItem');
-            const insuranceItem = document.getElementById('insuranceItem');
-            const totalPriceElement = document.getElementById('totalPrice');
-            const shippingPriceElement = document.getElementById('shippingPrice');
-
-            // Calculate total
-            let total = prices.product + prices.shipping;
-
-            // Toggle Protection Item
-            if (protectionCheck.checked) {
-                protectionItem.classList.remove('hidden');
-                total += prices.protection;
-            } else {
-                protectionItem.classList.add('hidden');
-            }
-
-            // Toggle Insurance Item
-            if (insuranceCheck.checked) {
-                insuranceItem.classList.remove('hidden');
-                total += prices.insurance;
-            } else {
-                insuranceItem.classList.add('hidden');
-            }
-
-            // Update total price
-            totalPriceElement.textContent = formatRupiah(total);
-        }
-
-        // Toggle Shipping Options
-        function toggleShipping() {
-            const options = document.getElementById('shippingOptions');
-            const icon = document.getElementById('shippingIcon');
-            
-            if (options.classList.contains('hidden')) {
-                options.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                options.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // Toggle Note Field
-        function toggleNote() {
-            const noteField = document.getElementById('noteField');
-            noteField.classList.toggle('hidden');
-            if (!noteField.classList.contains('hidden')) {
-                noteField.focus();
-            }
-        }
-
-        // Update Note Character Count
-        function updateNoteCount() {
-            const noteField = document.getElementById('noteField');
-            const noteCount = document.getElementById('noteCount');
-            noteCount.textContent = `${noteField.value.length}/200`;
-        }
-
-        // Toggle Promo
-        function togglePromo() {
-            alert('Fitur promo akan segera hadir!');
-        }
-
-        // Update payment method UI+
-        document.querySelectorAll('input[name="payment"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('label:has(input[name="payment"])').forEach(label => {
+                document.getElementById('shippingItem').classList.remove('hidden');
+                
+                // Update total
+                updateTotal();
+                
+                // Highlight selected shipping
+                document.querySelectorAll('label:has(input[name="shipping"])').forEach(label => {
                     label.classList.remove('border-blue-950', 'bg-blue-50');
                     label.classList.add('border-gray-200');
                 });
-                
-                this.closest('label').classList.remove('border-gray-200');
-                this.closest('label').classList.add('border-blue-950', 'bg-blue-50');
-            });
-        });
+                radio.closest('label').classList.remove('border-gray-200');
+                radio.closest('label').classList.add('border-blue-950', 'bg-blue-50');
+            }
+        }
 
-        // Populate hidden inputs sebelum submit
+        // Update Total
+        function updateTotal() {
+            const total = prices.product + prices.shipping;
+            document.getElementById('totalPrice').textContent = formatRupiah(total);
+        }
+
+        // Form Submit Handler
         document.getElementById('customerForm').addEventListener('submit', function(e) {
-            // Get selected shipping
             const selectedShipping = document.querySelector('input[name="shipping"]:checked');
             
             if (!selectedShipping) {
                 e.preventDefault();
-                alert('Mohon pilih jasa pengiriman terlebih dahulu.');
+                alert('Mohon pilih kurir pengiriman terlebih dahulu!');
                 return false;
             }
             
-            // Populate shipping data
+            // Populate hidden inputs
             document.getElementById('hiddenShippingCourier').value = selectedShipping.value;
             document.getElementById('hiddenShippingService').value = selectedShipping.getAttribute('data-name');
             document.getElementById('hiddenShippingCost').value = selectedShipping.getAttribute('data-price');
-            
-            // Populate total
-            document.getElementById('hiddenTotal').value = calculateGrandTotal();
-            
-            // Populate cart items from localStorage
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            document.getElementById('hiddenCartItems').value = JSON.stringify(cartItems);
-        });
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateSummary();
+            document.getElementById('hiddenTotal').value = prices.product + prices.shipping;
         });
     </script>
 
 </body>
-
 </html>

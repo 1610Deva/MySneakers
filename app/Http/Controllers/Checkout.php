@@ -56,6 +56,16 @@ class Checkout extends Controller
                     ->where('product_id', $validated['product_id'])
                     ->decrement('jumlah_stok', $validated['quantity']);
 
+                    session()->put('checkout_product', [
+                'product_id' => $validated['product_id'],
+                'product_name' => $validated['product_name'],
+                'product_brand' => $validated['product_brand'],
+                'product_price' => $validated['product_price'],
+                'quantity' => $validated['quantity'],
+                'size' => $validated['size'] ?? 'Not Selected',
+                'image' => asset('images/products/nike-pandalow.webp'), // Sesuaikan path image
+            ]);
+
                 // Simpan order_id ke session
                 session()->put('current_order_id', $orderId);
 
