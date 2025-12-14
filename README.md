@@ -17,6 +17,7 @@ Aplikasi ini mencakup berbagai fitur esensial untuk sebuah marketplace modern:
 * **Autentikasi Pengguna:** Sistem Login, Register, dan Logout
 * **Katalog Produk:** Menampilkan koleksi sepatu dengan
 * **Keranjang & Transaksi:** Fitur *Add to Cart* dan simulasi checkout pembelian.
+* **Transaction Log:** Fitur untuk melihat histori transaksi.
 
 ---
 
@@ -28,7 +29,7 @@ Aplikasi ini mencakup berbagai fitur esensial untuk sebuah marketplace modern:
 | **Frontend** | Blade Templates, Tailwind CSS /  |
 | **Database** | MySQL|
 | **Package Manager** | Composer (PHP)|
-| **Server Environment** | Apache  |
+| **Server Environment** | Docker  |
 
 ---
 
