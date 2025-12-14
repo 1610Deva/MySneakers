@@ -13,9 +13,11 @@ class SessionController extends Controller
     {
         return view("sesi/index");
     }
+    
     function login(Request $request)
     {
         Session::flash('email', $request->email);
+        
         $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -30,16 +32,20 @@ class SessionController extends Controller
         ];
 
         if (Auth::attempt($infologin)) {
-            return redirect('dashboard')->with('success', 'Login Berhasil');
-        }else{
-            return redirect('sesi')->withErrors('Username dan Password tidak valid');
+            $request->session()->regenerate();
+            
+            return redirect()->intended('home')->with('success', 'Login Berhasil');
+        } else {
+            return back()->withErrors('Email atau password salah')->withInput();
         }
-
     }
 
-    function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('sesi')->with('success', 'Logout Berhasil');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Logout berhasil');
     }
 }

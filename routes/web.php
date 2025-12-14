@@ -5,30 +5,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\Checkout;
+use App\Http\Controllers\ProductsController;
 
-Route::get('/', function () {
-    return view('home');
+// ✅ Route Login dengan nama 'login'
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/login', [SessionController::class, 'login'])->name('login.post');
+
+// ✅ Route Register
+Route::get('/register', function () {
+    return view('register');
 });
 
-Route::get('dashboard', function () {
-    return view('dashboard');
-});
+Route::post('/register', function (Request $request) {
+    $credentials = $request->validate([
+        'name' => ['required'],
+        'email' => ['required', 'email', 'unique:users'],
+        'password' => ['required', 'min:8'],
+    ]);
 
-Route::get('/sesi', [SessionController::class, 'index']);
-Route::post('sesi/login', [SessionController::class, 'login']);
+    $user = User::create([
+        'name' => $credentials['name'],
+        'email' => $credentials['email'],
+        'password' => Hash::make($credentials['password']),
+    ]);
 
-Route::get('home', function () {
-    return view('home');
-});
-
-Route::get('checkout', function () {
-    return view('payment');
-});
-
-Route::get('productdetail', function () {
-    return view('productDetail');
-});
-
+    return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
 Route::get('menskatalog', function () {
     return view('menskatalog');
 });
@@ -41,40 +46,35 @@ Route::get('kidskatalog', function () {
     return view('kidskatalog');
 });
 
-Route::get('login', function () {
-    return view('login');
+Route::post('/checkout/process', [Checkout::class, 'store'])->name('checkout.process');
+
+
+// ✅ Protected Routes (harus login)
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+
+    Route::post('/payment/complete/{order_id}', [Checkout::class, 'markPaid'])->name('payment.complete');
+
+    Route::get('/checkout', function () {
+        return view('payment');
+    })->name('checkout');
+
+    Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 });
+
+// ✅ Public Routes
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+Route::get('/product/{product_id}', [ProductsController::class, 'show'])->name('products.show');
+Route::get('/payment/success/{order_id}', [Checkout::class, 'showPayment'])->name('payment.success');
+
+// ✅ CSRF Token Route (optional)
 Route::get('/token', function (Request $request) {
-    // return session token (or use csrf_token() if preferred)
     return $request->session()->token();
-});
-
-Route::get('register', function () {
-    return view('register');
-});
-
-Route::post('register', function (Request $request) {
-    $cresidentials = $request->validate([
-        'name' => ['required'],
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ]);
-
-    $user = User::create([
-        'name' => $cresidentials['name'],
-        'email' => $cresidentials['email'],
-        'password' => Hash::make($cresidentials['password']),
-    ]);
-
-    $user->save();
-
-    return redirect('dashboard');
-});
-
-Route::get('nike-dunklow', function () {
-    return view('nike-dunklow');
-});
-
 Route::get('nike-air-force1', function () {
     return view('nike-air-force1');
 });
