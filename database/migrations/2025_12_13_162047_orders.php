@@ -28,6 +28,13 @@ return new class extends Migration
             $table->string('shipping_service');
             $table->decimal('shipping_cost', 10, 2);
             
+            // ✅ TAMBAHKAN KOLOM PAYMENT
+            $table->string('snap_token')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('payment_status')->default('pending'); // pending, success, failed
+            $table->string('transaction_status')->nullable();
+            $table->timestamp('paid_at')->nullable();
+            
             $table->timestamps();
             
             $table->foreign('user_id')

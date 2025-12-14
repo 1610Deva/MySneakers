@@ -1,0 +1,16 @@
+# Exclude EVERYTHING yang tidak perlu runtime
+.git
+.github
+.vscode
+.idea
+tests
+phpunit.xml
+*.md
+/vendor           # Install ulang di Dockerfile
+/node_modules     # Install ulang di Dockerfile
+!.env.example
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/bootstrap/cache/*
