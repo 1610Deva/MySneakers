@@ -6,9 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Midtrans\Config;
+use Midtrans\Snap;
+use Midtrans\Notification;
 
 class Checkout extends Controller
 {
+    public function __construct()
+    {
+        // Set Midtrans configuration
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+    }
+
     // Menampilkan halaman payment
     public function index()
     {
@@ -24,7 +36,7 @@ class Checkout extends Controller
         }
 
         // ✅ Case 1: Dari halaman produk (single product checkout)
-        if ($request->has('product_id') && !$request->has('cart_items')) {
+        if ($request->has('product_id') && ! $request->has('cart_items')) {
             $validated = $request->validate([
                 'product_id' => 'required|string',
                 'product_name' => 'required|string',
@@ -42,11 +54,12 @@ class Checkout extends Controller
                     'status' => 'Pending',
                     'total' => $validated['product_price'] * $validated['quantity'],
                     'customer_name' => Auth::user()->name,
-                    'customer_email' => Auth::user()->email,
-                    'customer_phone' => '', // Akan diisi di halaman payment
-                    'shipping_courier' => '', // Akan diisi di halaman payment
-                    'shipping_service' => '', // Akan diisi di halaman payment
-                    'shipping_cost' => 0, // Akan diisi di halaman payment
+                    'customer_email' => Auth:: user()->email,
+                    'customer_phone' => '',
+                    'shipping_courier' => '',
+                    'shipping_service' => '',
+                    'shipping_cost' => 0,
+                    'payment_status' => 'pending',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -56,25 +69,23 @@ class Checkout extends Controller
                     ->where('product_id', $validated['product_id'])
                     ->decrement('jumlah_stok', $validated['quantity']);
 
-                    session()->put('checkout_product', [
-                'product_id' => $validated['product_id'],
-                'product_name' => $validated['product_name'],
-                'product_brand' => $validated['product_brand'],
-                'product_price' => $validated['product_price'],
-                'quantity' => $validated['quantity'],
-                'size' => $validated['size'] ?? 'Not Selected',
-                'image' => asset('images/products/nike-pandalow.webp'), // Sesuaikan path image
-            ]);
+                session()->put('checkout_product', [
+                    'product_id' => $validated['product_id'],
+                    'product_name' => $validated['product_name'],
+                    'product_brand' => $validated['product_brand'],
+                    'product_price' => $validated['product_price'],
+                    'quantity' => $validated['quantity'],
+                    'size' => $validated['size'] ??  'Not Selected',
+                    'image' => asset('images/products/nike-pandalow.webp'),
+                ]);
 
-                // Simpan order_id ke session
                 session()->put('current_order_id', $orderId);
 
-                // Redirect ke halaman payment
                 return redirect()->route('checkout')
-                    ->with('success', 'Order dibuat! Silakan lengkapi data pembayaran.');
+                    ->with('success', 'Order dibuat!  Silakan lengkapi data pembayaran.');
             } catch (\Exception $e) {
                 Log::error('Checkout Error: ' . $e->getMessage());
-                return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                return back()->with('error', 'Terjadi kesalahan:  ' . $e->getMessage());
             }
         }
 
@@ -93,8 +104,6 @@ class Checkout extends Controller
 
             try {
                 $cartItems = json_decode($validated['cart_items'], true);
-
-                // Update order yang sudah dibuat (dari session) atau buat baru
                 $orderId = session('current_order_id');
 
                 if ($orderId) {
@@ -112,9 +121,9 @@ class Checkout extends Controller
                             'updated_at' => now(),
                         ]);
                 } else {
-                    // Buat order baru (jika dari cart)
+                    // Buat order baru
                     $orderId = DB::table('orders')->insertGetId([
-                        'user_id' => Auth::id(),
+                        'user_id' => Auth:: id(),
                         'product_id' => implode(',', array_column($cartItems, 'id')),
                         'status' => 'Pending',
                         'total' => $validated['total'],
@@ -124,60 +133,253 @@ class Checkout extends Controller
                         'shipping_courier' => $validated['shipping_courier'],
                         'shipping_service' => $validated['shipping_service'],
                         'shipping_cost' => $validated['shipping_cost'],
+                        'payment_status' => 'pending',
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);
-
-                    // Kurangi stok untuk semua produk
-                    foreach ($cartItems as $item) {
-                        DB::table('products')
-                            ->where('product_id', $item['id'])
-                            ->decrement('jumlah_stok', $item['quantity'] ?? 1);
-                    }
                 }
 
-                // Hapus session order_id
-                session()->forget('current_order_id');
+                // ✅ GENERATE MIDTRANS SNAP TOKEN
+                $snapToken = $this->createSnapToken($orderId, $validated);
 
-                // Redirect ke payment success
-                return redirect()->route('payment.success', ['order_id' => $orderId])
-                    ->with('success', 'Order berhasil! Silakan lanjutkan pembayaran.');
+                // Update snap_token ke database
+                DB::table('orders')
+                    ->where('order_id', $orderId)
+                    ->update(['snap_token' => $snapToken]);
+
+                // Redirect ke halaman Snap Payment
+                return redirect()->route('payment.snap', $orderId);
+
             } catch (\Exception $e) {
-                Log::error('Checkout Error: ' . $e->getMessage());
+                Log::error('Payment Error: ' . $e->getMessage());
                 return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
             }
         }
 
-        return back()->with('error', 'Data checkout tidak lengkap.');
+        return back()->with('error', 'Data checkout tidak valid.');
     }
 
-    // Tandai order sebagai Dibayar
-    public function markPaid($order_id)
+    /**
+     * Generate Midtrans Snap Token
+     */
+    private function createSnapToken($orderId, $orderData)
     {
-        $updated = DB::table('orders')
-            ->where('order_id', $order_id)
-            ->update([
-                'status' => 'Dibayar',
-                'updated_at' => now(),
-            ]);
+        $params = [
+            'transaction_details' => [
+                'order_id' => 'ORDER-' . $orderId .  '-' . time(),
+                'gross_amount' => (int) $orderData['total'],
+            ],
+            'customer_details' => [
+                'first_name' => $orderData['customerName'],
+                'email' => $orderData['customerEmail'],
+                'phone' => '+62' . $orderData['customerPhone'],
+            ],
+            'item_details' => [
+                [
+                    'id' => 'PRODUCT-' . $orderId,
+                    'price' => (int) ($orderData['total'] - $orderData['shipping_cost']),
+                    'quantity' => 1,
+                    'name' => 'Product Purchase',
+                ],
+                [
+                    'id' => 'SHIPPING',
+                    'price' => (int) $orderData['shipping_cost'],
+                    'quantity' => 1,
+                    'name' => 'Shipping Cost - ' . $orderData['shipping_service'],
+                ],
+            ],
+        ];
 
-        if (!$updated) {
-            return back()->with('error', 'Gagal memperbarui status pembayaran.');
+        try {
+            $snapToken = Snap::getSnapToken($params);
+            return $snapToken;
+        } catch (\Exception $e) {
+            Log::error('Midtrans Snap Error: ' . $e->getMessage());
+            throw $e;
         }
-
-        return redirect()->route('payment.success', ['order_id' => $order_id])
-            ->with('success', 'Pembayaran berhasil! Status: Dibayar');
     }
 
-    // Halaman sukses setelah checkout
-    public function showPayment($order_id)
+    /**
+     * Tampilkan halaman Snap Payment
+     */
+    public function showSnapPayment($orderId)
     {
-        $order = DB::table('orders')->where('order_id', $order_id)->first();
+        $order = DB::table('orders')->where('order_id', $orderId)->first();
 
         if (!$order) {
-            abort(404, 'Order tidak ditemukan');
+            return redirect()->route('home')->with('error', 'Order tidak ditemukan.');
         }
 
+        if (! $order->snap_token) {
+            return redirect()->route('home')->with('error', 'Snap token tidak tersedia.');
+        }
+
+        return view('payment-snap', compact('order'));
+    }
+
+    /**
+     * ✅ Alias method untuk backward compatibility
+     */
+    public function showPayment($orderId)
+    {
+        return $this->showSnapPayment($orderId);
+    }
+
+    /**
+     * Handle Midtrans Notification (Webhook)
+     */
+    public function handleNotification(Request $request)
+    {
+        try {
+            // Konfigurasi Midtrans
+            Config::$serverKey = config('midtrans.server_key');
+            Config::$isProduction = config('midtrans.is_production');
+
+            // Buat instance notifikasi
+            $notification = new Notification();
+
+            // Ambil data notifikasi
+            $transactionStatus = $notification->transaction_status;
+            $paymentType = $notification->payment_type;
+            $orderId = $notification->order_id;
+            $fraudStatus = $notification->fraud_status ?? 'accept';
+
+            Log::info("Midtrans Notification Received", [
+                'order_id' => $orderId,
+                'transaction_status' => $transactionStatus,
+                'payment_type' => $paymentType,
+                'fraud_status' => $fraudStatus
+            ]);
+
+            // ✅ Cari order berdasarkan order_id
+            $order = DB::table('orders')->where('order_id', $orderId)->first();
+
+            if (!$order) {
+                Log::error("Order not found: {$orderId}");
+                return response()->json(['status' => 'error', 'message' => 'Order not found'], 404);
+            }
+
+            // ✅ Update status berdasarkan transaction_status
+            if ($transactionStatus == 'capture') {
+                if ($fraudStatus == 'accept') {
+                    $this->updateOrderStatus($orderId, 'Paid', $notification);
+                }
+            } elseif ($transactionStatus == 'settlement') {
+                // ✅ PALING PENTING - Status ini yang muncul setelah pembayaran berhasil
+                $this->updateOrderStatus($orderId, 'Paid', $notification);
+            } elseif ($transactionStatus == 'pending') {
+                $this->updateOrderStatus($orderId, 'Pending', $notification);
+            } elseif ($transactionStatus == 'deny' || $transactionStatus == 'expire' || $transactionStatus == 'cancel') {
+                $this->updateOrderStatus($orderId, 'Failed', $notification);
+            }
+
+            return response()->json(['status' => 'success']);
+
+        } catch (\Exception $e) {
+            Log::error("Midtrans Notification Error: " . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Update Order Status
+     */
+    private function updateOrderStatus($orderId, $status, $notification)
+    {
+        $updateData = [
+            'status' => $status,
+            'payment_status' => $status == 'Paid' ? 'success' : ($status == 'Failed' ? 'failed' : 'pending'),
+            'payment_type' => $notification->payment_type,
+            'transaction_status' => $notification->transaction_status,
+            'updated_at' => now()
+        ];
+
+        // ✅ Jika status Paid, tambahkan timestamp
+        if ($status == 'Paid') {
+            $updateData['paid_at'] = now();
+        }
+
+        DB::table('orders')
+            ->where('order_id', $orderId)
+            ->update($updateData);
+
+        Log::info("Order #{$orderId} updated to {$status}", $updateData);
+    }
+
+    /**
+     * Payment Success Page
+     */
+    public function paymentSuccess($orderId)
+    {
+        $order = DB::table('orders')->where('order_id', $orderId)->first();
+        
+        if (!$order) {
+            return redirect()->route('home')->with('error', 'Order tidak ditemukan.');
+        }
+        
+        // ✅ Auto-update status menjadi Paid saat halaman success dibuka
+        DB::table('orders')
+            ->where('order_id', $orderId)
+            ->update([
+                'status' => 'Paid',
+                'payment_status' => 'success',
+                'paid_at' => now(),
+                'updated_at' => now()
+            ]);
+        
+        Log::info("Order #{$orderId} marked as Paid from payment success page");
+        
+        // Refresh order data setelah update
+        $order = DB::table('orders')->where('order_id', $orderId)->first();
+        
         return view('payment-success', compact('order'));
+    }
+
+    /**
+     * Payment Pending Page
+     */
+    public function paymentPending($orderId)
+    {
+        $order = DB::table('orders')->where('order_id', $orderId)->first();
+        
+        if (! $order) {
+            return redirect()->route('home')->with('error', 'Order tidak ditemukan.');
+        }
+        
+        return view('payment-pending', compact('order'));
+    }
+
+    /**
+     * Payment Error Page
+     */
+    public function paymentError($orderId)
+    {
+        $order = DB::table('orders')->where('order_id', $orderId)->first();
+        
+        if (!$order) {
+            return redirect()->route('home')->with('error', 'Order tidak ditemukan.');
+        }
+        
+        return view('payment-error', compact('order'));
+    }
+
+    /**
+     * Confirm Payment & Redirect to Home
+     */
+    public function confirmAndRedirectHome($orderId)
+    {
+        // ✅ Update status menjadi Paid
+        DB::table('orders')
+            ->where('order_id', $orderId)
+            ->update([
+                'status' => 'Paid',
+                'payment_status' => 'success',
+                'paid_at' => now(),
+                'updated_at' => now()
+            ]);
+        
+        Log::info("Order #{$orderId} confirmed as Paid, redirecting to home");
+        
+        return redirect()->route('home')->with('success', 'Terima kasih! Pesanan Anda berhasil dibayar.');
     }
 }

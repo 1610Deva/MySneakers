@@ -50,12 +50,35 @@ Route::get('kidskatalog', function () {
 
 Route::post('/checkout/process', [Checkout::class, 'store'])->name('checkout.process');
 
+// ✅ Midtrans Webhook (MUST be excluded from CSRF verification)
+Route::post('/payment/notification', [Checkout::class, 'handleNotification'])->name('payment.notification');
+
+// ✅ Protected Routes (harus login)
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [ProductsController::class, 'home'])->name('home');
+    Route::get('/checkout', [Checkout::class, 'index'])->name('checkout');
+    
+    // ✅ Midtrans Payment Routes
+    Route::get('/payment/snap/{order_id}', [Checkout:: class, 'showSnapPayment'])->name('payment.snap');
+    Route::get('/payment/success/{order_id}', [Checkout::class, 'paymentSuccess'])->name('payment.success');
+    Route::get('/payment/pending/{order_id}', [Checkout::class, 'paymentPending'])->name('payment.pending');
+    Route::get('/payment/error/{order_id}', [Checkout:: class, 'paymentError'])->name('payment.error');    Route::get('/payment/confirm/{order_id}', [Checkout::class, 'confirmAndRedirectHome'])->name('payment.confirm');
+    Route::get('/transaction', [App\Http\Controllers\TransactionLogController::class, 'index'])->name('transaction.log');
+    Route::get('/transactions/filter', [App\Http\Controllers\TransactionLogController::class, 'filterByStatus'])->name('transaction.filter');
+    Route::get('/transactions/sync', [App\Http\Controllers\TransactionLogController::class, 'syncAll'])->name('transaction.sync');
+    Route::get('/transactions/{order_id}', [App\Http\Controllers\TransactionLogController:: class, 'show'])->name('transaction.detail');
+    Route::get('/transactions/{order_id}/invoice', [App\Http\Controllers\TransactionLogController::class, 'downloadInvoice'])->name('transaction.invoice');    
+        
+    Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
+});
+
+// ✅ Public Routes (Dynamic Product Routes)
+Route::get('/{slug}', [ProductsController::class, 'show'])->name('product.show');
 
 // ✅ Protected Routes (harus login)
 Route::middleware('auth')->group(function () {
     Route::get('/home', [ProductsController::class, 'home'])->name('home'); // was: return view('home')
     Route::get('/checkout', [Checkout::class, 'index'])->name('checkout');  // was: return view('payment')
-    Route::post('/payment/complete/{order_id}', [Checkout::class, 'markPaid'])->name('payment.complete');
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 });
 
@@ -66,7 +89,7 @@ Route::get('/', function () {
 
 Route::get('/product/{product_id}', [ProductsController::class, 'show'])->name('products.show');
 
-Route::get('/payment/success/{order_id}', [Checkout::class, 'showPayment'])->name('payment.success');
+Route::get('/payment/success/{order_id}', [Checkout::class, 'paymentSuccess'])->name('payment.success');
 
 // ✅ CSRF Token Route (optional)
 Route::get('/token', function (Request $request) {
