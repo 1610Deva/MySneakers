@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nike Dunk Low - MySneakers</title>
+    <title>Nike Air Force - MySneakers</title>
     <link rel="shortcut icon" href="{{ asset('images/logo-sm1.jpg') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
@@ -12,101 +12,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
 </head>
 
-<body class="bg-slate-50" style="font-family: 'DM Sans', sans-serif;" x-data="shoppingCart()">
-
-    <style>
-        * {
-            scroll-behavior: smooth;
-        }
-        
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Smooth momentum scrolling for iOS */
-        .scrollbar-hide {
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Swiper Card Enhancements for New Arrivals Section */
-        .swiper-slide {
-            height: auto;
-        }
-
-        .swiper-slide>div {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Product Card Responsive Improvements */
-        @media (max-width: 640px) {
-
-            /* Mobile: Smaller cart button positioning */
-            .product-card-btn {
-                top: 0.5rem !important;
-                right: 0.5rem !important;
-                width: 2.25rem !important;
-                height: 2.25rem !important;
-            }
-
-            .product-card-btn svg {
-                width: 1.25rem !important;
-                height: 1.25rem !important;
-            }
-
-            /* Mobile: Compact product info */
-            .product-card-content {
-                padding: 0.75rem !important;
-            }
-
-            .product-title {
-                font-size: 0.875rem !important;
-                line-height: 1.25rem !important;
-                min-height: 2.5rem !important;
-            }
-
-            .product-price {
-                font-size: 1rem !important;
-            }
-
-            .product-badge {
-                padding: 0.125rem 0.375rem !important;
-                font-size: 0.75rem !important;
-            }
-        }
-
-        @media (min-width: 641px) and (max-width: 1024px) {
-
-            /* Tablet: Medium cart button */
-            .product-card-btn {
-                width: 2.5rem !important;
-                height: 2.5rem !important;
-            }
-
-            .product-card-btn svg {
-                width: 1.375rem !important;
-                height: 1.375rem !important;
-            }
-        }
-    </style>
+<body class="bg-slate-50" style="font-family: 'DM Sans', sans-serif;">
     
-     <!-- Top Banner -->
+    <!-- Top Banner -->
     <div class="bg-blue-950 text-white py-2.5">
         <div class="container mx-auto px-6">
             <p class="text-sm font-medium text-center">
-                💯 Guaranteed Authentic Sneakers in MySneakers
+                ✨ Free Shipping on Orders Over Rp 500.000
                 <a href="#" class="underline ml-2 hover:text-gray-200">Shop Now</a>
             </p>
         </div>
@@ -120,7 +34,7 @@
                 <div class="flex items-center justify-between gap-8">
                     <!-- Logo -->
                     <div class="flex items-center gap-2 shrink-0">
-                        <img src="{{ asset('images/logo-sm.jpg') }}" alt="MySneakers Logo" class="w-auto h-12" />
+                        <a href="{{ url('/') }}"><img src="{{ asset('images/logo-sm.jpg') }}" alt="MySneakers Logo" class="w-auto h-12" /></a>
                     </div>
 
                     <!-- Search Bar -->
@@ -153,7 +67,7 @@
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
-                            <span x-show="totalItems > 0" x-text="totalItems" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"></span>
+                            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">3</span>
                         </button>
                     </div>
                 </div>
@@ -163,35 +77,39 @@
         <!-- Navigation Menu -->
         <div class="bg-white relative">
             <div class="container mx-auto px-6">
-                <!-- Mobile: Horizontal scroll, Desktop: Centered -->
-                <div class="overflow-x-auto overflow-y-hidden scrollbar-hide py-3 md:overflow-visible">
-                    <div class="flex items-center justify-start md:justify-center gap-4 md:gap-8 whitespace-nowrap min-w-max md:min-w-0">
+                <div class="flex items-center justify-center py-3">
+                    <div class="flex items-center gap-8">
 
                         <!-- Men's Mega Menu -->
-                        <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Men's</a>
+                        <div class="relative group">
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Men's</a>
                         </div>
 
                         <!-- Women's Mega Menu -->
-                        <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Women's</a>
+                        <div class="relative group">
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Women's</a>
                         </div>
 
-                        <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Kid's</a>
+                        <div class="relative group">
+                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition">Kid's</a>
                         </div>
 
-                        <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition shrink-0 text-sm md:text-base">Sale</a>
-                        <span class="text-gray-300 shrink-0">|</span>
+                        <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition">Sale</a>
+                        <span class="text-gray-300">|</span>
 
                         <!-- Brands Mega Menu - FIXED -->
-                        <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-700 hover:text-blue-950 transition text-sm md:text-base">Brands</a>
+                        <div class="relative group">
+                            <a href="#" class="text-gray-700 hover:text-blue-950 transition">Brands</a>
                             <!-- Fixed dropdown positioning -->
                             <div class="absolute left-1/2 -translate-x-1/2 top-full w-screen max-w-7xl invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 ease-in-out pt-2 z-50">
                                 <div class="bg-white shadow-xl border border-gray-200 py-8 px-6 rounded-lg">
                                     <h3 class="text-xl font-bold mb-6 text-center text-gray-900">Shop by Brand</h3>
                                     <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                        <!-- @foreach(['Nike','Adidas','Puma','New Balance','Jordan','Asics','Reebok','Converse','Vans','Under Armour','Skechers','Fila'] as $brand)
+                                        <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex items-center justify-center group/item">
+                                            <span class="text-sm font-medium text-gray-700 group-hover/item:text-blue-950">{{ $brand }}</span>
+                                        </a>
+                                        @endforeach -->
                                         <!-- Nike -->
                                         <a href="#" class="border border-gray-200 rounded-lg p-4 hover:shadow-md hover:border-blue-950 transition flex flex-col items-center justify-center gap-2 group/item">
                                             <img src="{{ asset('images/logo/nike.webp') }}" alt="Nike" class="h-12 w-auto object-contain">
@@ -268,8 +186,8 @@
                             </div>
                         </div>
 
-                        <a href="#" class="text-gray-700 hover:text-blue-950 transition shrink-0 text-sm md:text-base">Releases</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-950 transition shrink-0 text-sm md:text-base">New Arrivals</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-950 transition">Releases</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-950 transition">New Arrivals</a>
                     </div>
                 </div>
             </div>
@@ -283,7 +201,7 @@
             <el-dialog-backdrop class="absolute inset-0 bg-gray-500/75 transition-opacity duration-200 ease-in-out data-closed:opacity-0"></el-dialog-backdrop>
 
             <div tabindex="0" class="absolute inset-0 pl-10 focus:outline-none sm:pl-16">
-                <el-dialog-panel class="ml-auto block size-full max-w-md transform transition duration-50 ease-in-out data-closed:translate-x-full sm:duration-300">
+                <el-dialog-panel class="ml-auto block size-full max-w-md transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700">
                     <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
                         <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                             <div class="flex items-start justify-between">
@@ -301,43 +219,79 @@
 
                             <div class="mt-8">
                                 <div class="flow-root">
-                                    <!-- Empty Cart Message -->
-                                    <div x-show="items.length === 0" class="text-center py-12">
-                                        <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                        </svg>
-                                        <h3 class="mt-4 text-lg font-medium text-gray-900">Your cart is empty</h3>
-                                        <p class="mt-1 text-sm text-gray-500">Start adding some sneakers!</p>
-                                    </div>
+                                    <ul role="list" class="-my-6 divide-y divide-gray-200">
+                                        <li class="flex py-6">
+                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="size-full object-cover" />
+                                            </div>
 
-                                    <!-- Cart Items -->
-                                    <ul role="list" class="-my-6 divide-y divide-gray-200" x-show="items.length > 0">
-                                        <template x-for="item in items" :key="item.id">
-                                            <li class="flex py-6">
-                                                <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                    <img :src="item.image" :alt="item.name" class="size-full object-cover" />
-                                                </div>
-
-                                                <div class="ml-4 flex flex-1 flex-col">
-                                                    <div>
-                                                        <div class="flex justify-between text-base font-medium text-gray-900">
-                                                            <h3>
-                                                                <a href="#" x-text="item.name"></a>
-                                                            </h3>
-                                                            <p class="ml-4" x-text="formatRupiah(item.price)"></p>
-                                                        </div>
-                                                        <p class="mt-1 text-sm text-gray-500" x-text="item.brand"></p>
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <a href="#">Throwback Hip Bag</a>
+                                                        </h3>
+                                                        <p class="ml-4">$90.00</p>
                                                     </div>
-                                                    <div class="flex flex-1 items-end justify-between text-sm">
-                                                        <p class="text-gray-500">Qty <span x-text="item.quantity"></span></p>
+                                                    <p class="mt-1 text-sm text-gray-500">Salmon</p>
+                                                </div>
+                                                <div class="flex flex-1 items-end justify-between text-sm">
+                                                    <p class="text-gray-500">Qty 1</p>
 
-                                                        <div class="flex">
-                                                            <button type="button" @click="removeFromCart(item.id)" class="font-medium text-blue-950 hover:text-blue-800">Remove</button>
-                                                        </div>
+                                                    <div class="flex">
+                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </template>
+                                            </div>
+                                        </li>
+                                        <li class="flex py-6">
+                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-02.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="size-full object-cover" />
+                                            </div>
+
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <a href="#">Medium Stuff Satchel</a>
+                                                        </h3>
+                                                        <p class="ml-4">$32.00</p>
+                                                    </div>
+                                                    <p class="mt-1 text-sm text-gray-500">Blue</p>
+                                                </div>
+                                                <div class="flex flex-1 items-end justify-between text-sm">
+                                                    <p class="text-gray-500">Qty 1</p>
+
+                                                    <div class="flex">
+                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="flex py-6">
+                                            <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-03.jpg" alt="Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls." class="size-full object-cover" />
+                                            </div>
+
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>
+                                                            <a href="#">Zip Tote Basket</a>
+                                                        </h3>
+                                                        <p class="ml-4">$140.00</p>
+                                                    </div>
+                                                    <p class="mt-1 text-sm text-gray-500">White and black</p>
+                                                </div>
+                                                <div class="flex flex-1 items-end justify-between text-sm">
+                                                    <p class="text-gray-500">Qty 1</p>
+
+                                                    <div class="flex">
+                                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -346,16 +300,16 @@
                         <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                             <div class="flex justify-between text-base font-medium text-gray-900">
                                 <p>Subtotal</p>
-                                <p x-text="formatRupiah(totalPrice)"></p>
+                                <p>$262.00</p>
                             </div>
                             <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                             <div class="mt-6">
-                                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-blue-950 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-blue-900" :class="{ 'opacity-50 cursor-not-allowed': items.length === 0 }" @click.prevent="items.length > 0 && alert('Checkout feature coming soon!')">Checkout</a>
+                                <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Checkout</a>
                             </div>
                             <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>
                                     or
-                                    <button type="button" command="close" commandfor="drawer" class="font-medium text-blue-950 hover:text-blue-800">
+                                    <button type="button" command="close" commandfor="drawer" class="font-medium text-indigo-600 hover:text-indigo-500">
                                         Continue Shopping
                                         <span aria-hidden="true"> &rarr;</span>
                                     </button>
@@ -375,7 +329,7 @@
                 <span>/</span>
                 <a href="#" class="hover:text-blue-950">Men's</a>
                 <span>/</span>
-                <span class="text-gray-900 font-medium">Nike Dunk Low</span>
+                <span class="text-gray-900 font-medium">Nike</span>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-12">
@@ -384,26 +338,26 @@
             <div>
                 <!-- Main Image -->
                 <div class="bg-white rounded-2xl p-8 mb-6 border border-gray-200">
-                    <img src="{{ asset('images/products/detail-product/nike-pandalow-right.webp') }}" alt="Nike Dunk Low" class="w-auto aspect-square object-contain" id="mainImage">
+                    <img src="{{ asset('images/products/detail-product/samba-og-side.jpg') }}" alt="Nike Dunk Low" class="w-auto aspect-square object-contain" id="mainImage">
                 </div>
 
                 <!-- Thumbnail Gallery -->
                 <div class="grid grid-cols-4 gap-4">
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-blue-950 hover:border-blue-900 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-right.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-right.webp') }}" alt="View 1" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-side.jpg') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-side.jpg') }}" alt="View 1" class="w-full aspect-square object-contain">
                     </button>
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-blue-950 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-left.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-left.webp') }}" alt="View 2" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-side2.jpg') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-side2.jpg') }}" alt="View 2" class="w-full aspect-square object-contain">
                     </button>
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-blue-950 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-back.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-back.webp') }}" alt="View 3" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-back.jpg') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-back.jpg') }}" alt="View 3" class="w-full aspect-square object-contain">
                     </button>
                     <button class="thumbnail-btn bg-white rounded-lg p-4 border-2 border-gray-200 hover:border-blue-950 transition" 
-                            data-image="{{ asset('images/products/detail-product/nike-pandalow-up.webp') }}">
-                        <img src="{{ asset('images/products/detail-product/nike-pandalow-up.webp') }}" alt="View 4" class="w-full aspect-square object-contain">
+                            data-image="{{ asset('images/products/detail-product/samba-og-sol.jpg') }}">
+                        <img src="{{ asset('images/products/detail-product/samba-og-sol.jpg') }}" alt="View 4" class="w-full aspect-square object-contain">
                     </button>
                 </div>
             </div>
@@ -417,25 +371,21 @@
                         <span class="text-lg font-bold text-gray-900">4.7</span>
                         <span class="text-gray-500">(227)</span>
                     </div>
+                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">HEMAT Rp.600.000</span>
                 </div>
 
                 <!-- Product Name -->
-                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">{{ $product->nama_produk }}</h1>
-                <p class="text-gray-600 mb-1">{{ $product->merk_produk }}</p>
-                <a href="#" class="text-blue-950 font-semibold text-sm hover:underline mb-6 inline-block">
-                        Explore {{ $product->merk_produk }}
-                    </a>
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Adidas Samba OG</h1>
+                <p class="text-gray-600 mb-1">Boys' Grade School</p>
+                <a href="#" class="text-blue-950 font-semibold text-sm hover:underline mb-6 inline-block">Explore Nike</a>
 
                 <!-- Price -->
                 <div class="mb-6">
                     <div class="flex items-baseline gap-3">
-                        <span class="text-4xl font-bold text-gray-900">
-                            {{ 'Rp. ' . number_format($product->harga, 0, ',', '.') }}
-                        </span>
-                        {{-- Jika punya harga asli/discount, tampilkan di sini --}}
-                        {{-- <span class="text-2xl text-gray-400 line-through">Rp. 1.550.000</span> --}}
+                        <span class="text-4xl font-bold text-gray-900">Rp. 1.200.000</span>
+                        <span class="text-2xl text-gray-400 line-through">Rp. 1.800.000</span>
                     </div>
-                    {{-- <p class="text-green-600 font-semibold mt-1">50% off</p> --}}
+                    <p class="text-green-600 font-semibold mt-1">33,33% off</p>
                 </div>
 
                 <!-- Size Selector -->
@@ -457,40 +407,20 @@
                 </div>
 
                 <!-- Add to Cart -->
-                <button 
-                @click="addToCart({ 
-                    id: '{{ $product->product_id }}', 
-                    name: '{{ $product->nama_produk }}', 
-                    brand: '{{ $product->merk_produk }}', 
-                    price: {{ (int)$product->harga }}, 
-                    image: '{{ asset('images/products/nike-pandalow.webp') }}' 
-                })"
-                class="w-full bg-blue-950 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-900 transition-all transform hover:scale-105 shadow-lg mb-4">
+                <button class="w-full bg-blue-950 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-900 transition-all transform hover:scale-105 shadow-lg mb-4">
                     <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.53L17 13M7 13V6a1 1 0 011-1h8a1 1 0 011 1v7" />
                     </svg>
                     ADD TO CART +
                 </button>
 
-                <!-- Checkout Button -->
-                <form action="{{ route('checkout.process') }}" method="POST" class="w-full">
-                    @csrf
-                    
-
-                    <!-- Kirim data produk -->
-                    <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                    <input type="hidden" name="product_name" value="{{ $product->nama_produk }}">
-                    <input type="hidden" name="product_brand" value="{{ $product->merk_produk }}">
-                    <input type="hidden" name="product_price" value="{{ (int)$product->harga }}">
-                    <input type="hidden" name="quantity" value="1">
-
-                    <button type="submit" class="w-full border-2 border-gray-300 text-gray-900 py-4 rounded-lg font-bold text-lg hover:border-blue-950 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                        </svg>
-                        Checkout Now !
-                    </button>
-                </form>
+                <!-- Wishlist Button -->
+                <a class="w-full border-2 border-gray-300 text-gray-900 py-4 rounded-lg font-bold text-lg hover:border-blue-950 hover:bg-slate-50 transition-all flex items-center justify-center gap-2" href="{{ url('/checkout') }}">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    Checkout Now !
+                </a>
             </div>
         </div>
     </div>
@@ -524,7 +454,7 @@
                     <div>
                         <h3 class="font-bold text-gray-900 mb-3">Description</h3>
                         <p class="text-gray-700 leading-relaxed">
-                            The Nike Dunk Low brings '80s basketball style back to the streets while its padded, low-cut collar lets you take your game anywhere—in comfort. Perforations on the toe add throwback hoops flair.
+                            The Nike Air Force 1 brings '80s basketball style back to the streets while its padded, low-cut collar lets you take your game anywhere—in comfort. Perforations on the toe add throwback hoops flair.
                         </p>
                     </div>
                     
@@ -809,10 +739,11 @@
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
                         </a>
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.261-2.148-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
                             </svg>
                         </a>
                     </div>
@@ -947,29 +878,7 @@
             }
         }
     </script>
-
-    <!--Fungsionalitas Keranjang -->
-    <script src="{{ asset('js/cart.js') }}"></script>
-
-    <style>
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fade-in 0.3s ease-out;
-        }
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
-
 
 </body>
 

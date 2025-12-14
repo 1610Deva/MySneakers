@@ -34,6 +34,16 @@ Route::post('/register', function (Request $request) {
     ]);
 
     return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+Route::get('menskatalog', function () {
+    return view('menskatalog');
+});
+
+Route::get('womenskatalog', function () {
+    return view('womenskatalog');
+});
+
+Route::get('kidskatalog', function () {
+    return view('kidskatalog');
 });
 
 Route::post('/checkout/process', [Checkout::class, 'store'])->name('checkout.process');
@@ -65,4 +75,34 @@ Route::get('/payment/success/{order_id}', [Checkout::class, 'showPayment'])->nam
 // ✅ CSRF Token Route (optional)
 Route::get('/token', function (Request $request) {
     return $request->session()->token();
+Route::get('nike-air-force1', function () {
+    return view('nike-air-force1');
+});
+
+route::get('adidas-samba-og', function () {
+    return view('adidas-samba-og');
+});
+
+Route::get('nike-air-jordan-retro1', function () {
+    return view('nike-air-jordan-retro1');
+});
+
+Route::get('adidas-samba-og-white', function () {
+    return view('adidas-samba-og-white');
+});
+
+Route::get('samba-og-woman', function () {
+    return view('samba-og-woman');
+});
+
+Route::get('chuck-taylor-allstar', function () {
+    return view('chuck-taylor-allstar');
+});
+
+Route::get('vans-oldschool-classic', function () {
+    return view('vans-oldschool-classic');
+});
+
+route::get('newbalance-1906', function () {
+    return view('NB-1906-unisex');
 });

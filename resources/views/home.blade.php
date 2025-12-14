@@ -179,16 +179,16 @@
 
                         <!-- Men's Mega Menu -->
                         <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Men's</a>
+                            <a href="/menskatalog" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Men's</a>
                         </div>
 
                         <!-- Women's Mega Menu -->
                         <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Women's</a>
+                            <a href="/womenskatalog" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Women's</a>
                         </div>
 
                         <div class="relative group shrink-0">
-                            <a href="#" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Kid's</a>
+                            <a href="kidskatalog" class="text-gray-900 font-semibold hover:text-blue-950 transition text-sm md:text-base">Kid's</a>
                         </div>
 
                         <a href="#" class="text-red-600 font-semibold hover:text-red-700 transition shrink-0 text-sm md:text-base">Sale</a>
@@ -539,11 +539,13 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                 <div class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[3/4]">
+                    <a href="/menskatalog">
                     <img src="{{ asset('images/MENS.webp') }}" alt="Men's Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                     <div class="absolute bottom-3 left-3 sm:bottom-6 sm:left-6">
                         <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white">Men's</h3>
                     </div>
+                    </a>
                 </div>
                 <div class="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[3/4]">
                     <img src="{{ asset('images/WOMENS.webp') }}" alt="Women's Sneakers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -629,6 +631,7 @@
                 <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
                     <!-- Product Image Container -->
                     <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <a href="/nike-air-force1">
                         <!-- Add to Cart Button - Touch Optimized -->
                         <button @click="addToCart({ id: 1, name: 'Air Force 1 Men\'s Shoes - White', brand: 'NIKE', price: 1600000, image: '{{ asset('images/products/nike-airforce1-men.webp') }}' })"
                             class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
@@ -642,6 +645,7 @@
                             alt="Nike Air Force 1 Men's Shoes - White"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                        </a>
                     </div>
                     <!-- Product Info Container -->
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
@@ -667,6 +671,7 @@
                 <!-- Product Card 2 - Adidas Samba White -->
                 <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
                     <div class="relative bg-gray-50 overflow-hidden aspect-square">
+                        <a href="/adidas-samba-og-white"> 
                         <button @click="addToCart({ id: 2, name: 'Samba OG Shoes - Cloud White', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambawhite.webp') }}' })"
                             class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
                             aria-label="Add to cart">
@@ -678,6 +683,7 @@
                             alt="Adidas Samba OG Shoes - Cloud White"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                        </a>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ADIDAS</p>
@@ -699,7 +705,8 @@
                 <!-- Product Card 3 - Adidas Samba Black -->
                 <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
                     <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                        <button @click="addToCart({ id: 3, name: 'Samba OG Shoes - Black', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambablack.webp') }}' })"
+                    <a href="/adidas-samba-og">  
+                    <button @click="addToCart({ id: 3, name: 'Samba OG Shoes - Black', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambablack.webp') }}' })"
                             class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
                             aria-label="Add to cart">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -710,6 +717,7 @@
                             alt="Adidas Samba OG Shoes - Black"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                    </a>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">ADIDAS</p>
@@ -731,17 +739,19 @@
                 <!-- Product Card 4 - Nike Air Jordan 1 -->
                 <article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group flex flex-col">
                     <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                        <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })"
+                    <a href="/nike-airjordan-retro1">    
+                    <button @click="addToCart({ id: 4, name: 'Air Jordan 1 Retro Mid - Black', brand: 'NIKE', price: 800000, image: '{{ asset('images/products/nike-airjordan1.webp') }}' })"
                             class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
                             aria-label="Add to cart">
                             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
                         </button>
-                        <img src="{{ asset('images/products/nike-airjordan1.webp') }}"
+                        <img src="{{ asset('images/products/detail-product/jordan-aj-mid-side.webp') }}"
                             alt="Nike Air Jordan 1 Retro Mid"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                    </a>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NIKE</p>
@@ -807,10 +817,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
                         </button>
+                        <a href="/chuckt-aylor-allstar">
                         <img src="{{ asset('images/products/converse-chucktaylor.webp') }}"
                             alt="Converse Chuck Taylor All Star"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                        </a>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">CONVERSE</p>
@@ -835,10 +847,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
                         </button>
+                        <a href="/vans-oldschool-classic">
                         <img src="{{ asset('images/products/vans-oldskool.webp') }}"
                             alt="Vans Old Skool Classic"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                        </a>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">VANS</p>
@@ -867,10 +881,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
                         </button>
+                        <a href="/newbalance-1906">
                         <img src="{{ asset('images/products/newbalance-1906.webp') }}"
                             alt="New Balance 1906"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy">
+                        </a>
                     </div>
                     <div class="p-3 sm:p-4 md:p-5 flex flex-col grow">
                         <p class="text-xs sm:text-sm font-semibold text-gray-500 mb-1.5 tracking-wide uppercase">NEW BALANCE</p>
@@ -1032,13 +1048,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 2, name: 'Samba OG Shoes - Cloud White', brand: 'ADIDAS', price: 1200000, image: '{{ asset('images/products/adidas-sambawhite.webp') }}' })"
-                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
-                                    aria-label="Add to cart">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                            
                                 <img src="{{ asset('images/products/adidas-sambawhite.webp') }}"
                                     alt="Adidas Samba OG Shoes - Cloud White"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -1126,11 +1136,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 5, name: 'Dunk Low Retro - White', brand: 'NIKE', price: 774500, image: '{{ asset('images/products/nike-pandalow.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                               
                                 <a href="{{ url('nike-dunklow') }}"><img src="{{ asset('images/products/nike-pandalow.webp') }}" alt="Nike Dunk Low White" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"></a>
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
@@ -1157,11 +1163,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 6, name: 'Chuck Taylor All Star High Top - Black', brand: 'CONVERSE', price: 899000, image: '{{ asset('images/products/converse-chucktaylor.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                                
                                 <img src="{{ asset('images/products/converse-chucktaylor.webp') }}" alt="Converse Chuck Taylor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
@@ -1180,11 +1182,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 7, name: 'Old Skool Classic - Black/White', brand: 'VANS', price: 980000, image: '{{ asset('images/products/vans-oldskool.webp') }}' })" class="absolute top-3 sm:top-4 right-3 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-md hover:bg-blue-900 transition z-10">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                                
                                 <img src="{{ asset('images/products/vans-oldskool.webp') }}" alt="Vans Old Skool Classic" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             </div>
                             <div class="p-3 sm:p-4 md:p-5 grow flex flex-col">
@@ -1207,13 +1205,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 8, name: '1906 Unisex Lifestyle Shoes - White Silver', brand: 'NEW BALANCE', price: 2599000, image: '{{ asset('images/products/newbalance-1906.webp') }}' })"
-                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
-                                    aria-label="Add to cart">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                                
                                 <img src="{{ asset('images/products/newbalance-1906.webp') }}"
                                     alt="New Balance 1906"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -1237,13 +1229,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 9, name: 'Compass Velocity Black', brand: 'COMPASS', price: 950000, image: '{{ asset('images/products/compass-velocity-black.webp') }}' })"
-                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
-                                    aria-label="Add to cart">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                                
                                 <img src="{{ asset('images/products/compass-velocity-black.webp') }}"
                                     alt="Compass Velocity Black"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -1271,13 +1257,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 10, name: 'GEL-KAYANO 14 Sneakers Shoes - White', brand: 'ASICS', price: 2399000, image: '{{ asset('images/products/asiscs-gelkayano.webp') }}' })"
-                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
-                                    aria-label="Add to cart">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                               
                                 <img src="{{ asset('images/products/asiscs-gelkayano.webp') }}"
                                     alt="Asics Gel Kayano 14"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -1301,13 +1281,7 @@
                     <div class="swiper-slide h-auto">
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300 group h-full flex flex-col">
                             <div class="relative bg-gray-50 overflow-hidden aspect-square">
-                                <button @click="addToCart({ id: 11, name: 'Compass Retrogade Low', brand: 'COMPASS', price: 500000, image: '{{ asset('images/products/compass-retrogadelow-bw.webp') }}' })"
-                                    class="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center bg-blue-950 text-white rounded-full shadow-lg hover:bg-blue-900 active:scale-95 transition-all z-10"
-                                    aria-label="Add to cart">
-                                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                </button>
+                               
                                 <img src="{{ asset('images/products/compass-retrogadelow-bw.webp') }}"
                                     alt="Compass Retrogade Low"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
